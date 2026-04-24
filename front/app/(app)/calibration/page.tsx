@@ -216,7 +216,11 @@ export default function CalibrationPage() {
                       position: "insideLeft",
                     }}
                   />
-                  <Tooltip formatter={(v: number) => v.toFixed(3)} />
+                  <Tooltip
+                    formatter={(v) =>
+                      typeof v === "number" ? v.toFixed(3) : String(v ?? "")
+                    }
+                  />
                   <Legend />
                   <Scatter
                     name="observations"

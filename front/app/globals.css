@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Enable ``.dark`` / ``.theme-dark`` to flip semantic tokens. */
+@custom-variant dark (&:where(.dark, .dark *, .theme-dark, .theme-dark *));
 
 :root {
   /* brand.cream */
@@ -34,9 +35,76 @@
   --destructive: 0 75% 55%;
 }
 
+@theme inline {
+  /* Semantic tokens (bg-background, text-foreground, ...) */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+
+  /* Brand palette */
+  --color-brand-deep: #10383a;
+  --color-brand-deeper: #0a2526;
+  --color-brand-deepest: #061617;
+  --color-brand-gold: #daa112;
+  --color-brand-gold-soft: #f0c755;
+  --color-brand-cream: #f7f1e0;
+  --color-brand-ink: #0b1d1e;
+
+  /* Typography */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* Shadows */
+  --shadow-gold: 0 10px 40px -10px rgba(218, 161, 18, 0.35);
+  --shadow-deep: 0 20px 60px -20px rgba(16, 56, 58, 0.4);
+
+  /* Backgrounds */
+  --background-image-grid-fade:
+    radial-gradient(
+      circle at center,
+      rgba(218, 161, 18, 0.08) 0%,
+      transparent 60%
+    );
+
+  /* Keyframes + animations */
+  --animate-fade-up: fadeUp 0.6s ease-out both;
+  --animate-shimmer: shimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 html,
 body {
-  @apply bg-background text-foreground;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
 body {
@@ -96,7 +164,6 @@ body {
   }
 }
 
-/* Deep, luxury drop shadow under floating cards */
 .card-3d {
   position: relative;
   background: linear-gradient(155deg, #143f41 0%, #0a2526 60%, #061617 100%);
@@ -132,7 +199,6 @@ body {
     0 0 60px -10px rgba(218, 161, 18, 0.35);
 }
 
-/* The raised "orb" chip that carries the icon */
 .orb-chip {
   position: relative;
   width: 64px;

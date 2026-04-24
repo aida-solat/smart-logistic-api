@@ -19,7 +19,11 @@ function fibonacciSphere(samples: number, radius = 1.9) {
     const r = Math.sqrt(1 - y * y);
     const theta = phi * i;
     points.push(
-      new THREE.Vector3(Math.cos(theta) * r, y, Math.sin(theta) * r).multiplyScalar(radius),
+      new THREE.Vector3(
+        Math.cos(theta) * r,
+        y,
+        Math.sin(theta) * r,
+      ).multiplyScalar(radius),
     );
   }
   return points;
@@ -134,12 +138,7 @@ function Particles() {
   return (
     <points ref={ref}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={positions.length / 3}
-          array={positions}
-          itemSize={3}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         color={CREAM}
@@ -162,7 +161,11 @@ export default function Hero3D() {
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.35} />
-        <directionalLight position={[5, 5, 5]} intensity={1.1} color={GOLD_SOFT} />
+        <directionalLight
+          position={[5, 5, 5]}
+          intensity={1.1}
+          color={GOLD_SOFT}
+        />
         <pointLight position={[-5, -3, -5]} intensity={0.6} color={GOLD} />
         <Core />
         <Globe />
