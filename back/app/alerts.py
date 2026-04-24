@@ -2,14 +2,10 @@ from geopy.distance import geodesic
 from datetime import datetime
 import logging
 
-# Initialize logger
 logger = logging.getLogger("alerts")
 
 
 async def send_real_time_alert(alert):
-    """
-    Sends a real-time alert to all connected WebSocket clients.
-    """
     event = {
         "type": "inventory_alert",
         "alert": alert,
@@ -17,19 +13,7 @@ async def send_real_time_alert(alert):
     await broadcast_notification(event)
 
 
-async def send_real_time_alert(alert):
-    """
-    Sends a real-time alert to all connected WebSocket clients.
-    """
-    event = {
-        "type": "inventory_alert",
-        "alert": alert,
-    }
-    await broadcast_notification(event)  # Use centralized broadcasting
-
-
 def check_inventory_threshold(inventory, threshold=10):
-    """Generate alerts for inventory items below a threshold."""
     try:
         alerts = [
             {
@@ -41,7 +25,7 @@ def check_inventory_threshold(inventory, threshold=10):
             if item["stock"] < threshold
         ]
         for alert in alerts:
-            asyncio.create_task(send_real_time_alert(alert))  # Trigger real-time alert
+            asyncio.create_task(send_real_time_alert(alert))
         return alerts
     except Exception as e:
         logging.error(f"Error in inventory threshold check: {e}")
@@ -49,7 +33,6 @@ def check_inventory_threshold(inventory, threshold=10):
 
 
 def check_route_deviation(actual_route, planned_route, deviation_tolerance=5.0):
-    """Alert for deviations between the actual route and planned route."""
     deviations = []
     try:
         for actual, planned in zip(actual_route, planned_route):
@@ -63,7 +46,6 @@ def check_route_deviation(actual_route, planned_route, deviation_tolerance=5.0):
 
 
 def check_inventory_overstock(inventory, max_threshold=100):
-    """Generate alerts for inventory items exceeding a maximum threshold."""
     try:
         overstocked_items = [
             item for item in inventory if item["stock"] > max_threshold
@@ -79,7 +61,6 @@ def check_inventory_overstock(inventory, max_threshold=100):
 
 
 def alert_route_delays(routes, delay_threshold=30):
-    """Generate alerts for routes with delays exceeding a threshold."""
     try:
         alerts = [
             {
@@ -90,7 +71,7 @@ def alert_route_delays(routes, delay_threshold=30):
             if route.get("predicted_delay", 0) > delay_threshold
         ]
         for alert in alerts:
-            asyncio.create_task(send_real_time_alert(alert))  # Trigger real-time alert
+            asyncio.create_task(send_real_time_alert(alert))
         return alerts
     except Exception as e:
         logging.error(f"Error in route delay alerting: {e}")
@@ -98,7 +79,6 @@ def alert_route_delays(routes, delay_threshold=30):
 
 
 def alert_delay_deviation(actual_delays, predicted_delays, deviation_threshold=15):
-    """Alert when the actual delays deviate significantly from predictions."""
     deviations = []
     try:
         for actual, predicted in zip(actual_delays, predicted_delays):

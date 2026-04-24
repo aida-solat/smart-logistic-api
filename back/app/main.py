@@ -22,11 +22,11 @@ from app.ai import (
     predict_route_delay,
 )
 from app.analytics import analyze_inventory_usage, analyze_route_performance
-from app.causal import router as causal_router  # APIRouter instance
-from app.optimizer import router as optim_router  # APIRouter instance
-from app.simulator import router as sim_router  # APIRouter instance
-from app.feedback import router as feedback_router  # APIRouter instance
-from app.llm import router as llm_router  # APIRouter instance
+from app.causal import router as causal_router
+from app.optimizer import router as optim_router
+from app.simulator import router as sim_router
+from app.feedback import router as feedback_router
+from app.llm import router as llm_router
 from prometheus_client import Counter, Histogram, make_asgi_app
 from typing import List, Dict, Optional
 from fastapi_limiter import FastAPILimiter
@@ -58,7 +58,6 @@ from pathlib import Path
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 import os
-from app.analytics import analyze_high_traffic_routes
 from sklearn.cluster import KMeans
 import numpy as np
 from statsmodels.tsa.arima.model import ARIMA
@@ -66,6 +65,7 @@ from statsmodels.tsa.arima.model import ARIMA
 connected_clients = []
 
 
+Path("logs").mkdir(parents=True, exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -75,10 +75,8 @@ logger = logging.getLogger(__name__)
 
 logger.info("Starting Smart Logistics API...")
 
-# Initialize database
 models.Base.metadata.create_all(bind=engine)
 
-# Initialize app
 app = FastAPI(
     title="Smart Logistics — Causal Decision Copilot",
     description="Prescriptive, causal, risk-aware decision engine for logistics.",
@@ -94,16 +92,12 @@ app.include_router(llm_router)
 @app.exception_handler(Exception)
 async def validation_exception_handler(request, exc):
     content = {"detail": str(exc)}
-
-    # Ensure content is JSON-serializable
     for key, value in content.items():
         if isinstance(value, bytes):
             content[key] = value.decode("utf-8")
-
     return JSONResponse(content=content, status_code=500)
 
 
-# Prometheus metrics
 REQUEST_COUNT = Counter(
     "api_requests_total", "Total API requests", ["endpoint", "method"]
 )
@@ -112,7 +106,6 @@ REQUEST_LATENCY = Histogram(
 )
 
 
-# Prometheus middleware
 @app.middleware("http")
 async def add_metrics(request, call_next):
     endpoint = request.url.path
@@ -125,12 +118,10 @@ async def add_metrics(request, call_next):
         return response
 
 
-# Add Prometheus metrics endpoint
 metrics_app = make_asgi_app()
 app.mount("/metrics", metrics_app)
 
 
-# Dependency for database session
 def get_db():
     db = SessionLocal()
     try:
@@ -146,14 +137,7 @@ def read_root():
 
 @app.get("/monitor-models")
 def monitor_models():
-    """
-    Check the status of the trained models and notify if retraining is required.
-
-    Returns:
-        dict: Status of the route and inventory models.
-    """
     try:
-        # Check route model status
         route_model_path = Path(settings.ROUTE_MODEL_PATH)
         inventory_model_path = Path(settings.INVENTORY_MODEL_PATH)
 
@@ -162,7 +146,6 @@ def monitor_models():
             "Available" if inventory_model_path.exists() else "Not Found"
         )
 
-        # Check model freshness
         route_model_age = None
         inventory_model_age = None
         retrain_message = []
@@ -183,7 +166,6 @@ def monitor_models():
             if inventory_model_age > 30:
                 retrain_message.append("Inventory model is older than 30 days.")
 
-        # Send Slack notification if retraining is needed
         if retrain_message:
             notify_slack("\n".join(retrain_message))
 
@@ -201,12 +183,6 @@ def monitor_models():
 
 
 def notify_slack(message: str):
-    """
-    Send a notification to a Slack channel.
-
-    Args:
-        message (str): The message to send.
-    """
     try:
         slack_token = os.getenv("SLACK_BOT_TOKEN")
         client = WebClient(token=slack_token)
@@ -218,13 +194,8 @@ def notify_slack(message: str):
 
 @app.post("/generate-token")
 def generate_token(request: TokenRequest):
-    # Default the role to "user" if it's missing or empty
     role = request.role or "user"
-
-    # Generate the token
     access_token = create_access_token(data={"role": role})
-
-    # Return the token along with the role
     return {"access_token": access_token, "token_type": "bearer", "role": role}
 
 
@@ -275,7 +246,6 @@ def create_inventory(items: List[schemas.InventoryItem], db: Session = Depends(g
             saved_item = crud.create_inventory_item(db, item)
             saved_items.append(saved_item)
         except Exception as e:
-            # Log error and continue with other items
             logging.error(f"Error saving item {item}: {e}")
     return saved_items
 
@@ -291,10 +261,8 @@ def update_inventory(
 def inventory_analytics(
     request: InventoryAnalyticsRequest = Depends(), db: Session = Depends(get_db)
 ):
-    # Fetch inventory data from DB
     data = get_inventory_data_from_db(db)
 
-    # Filter data by date range if specified
     if request.start_date or request.end_date:
         data = [
             record
@@ -303,17 +271,14 @@ def inventory_analytics(
             and (request.end_date is None or record["date"] <= request.end_date)
         ]
 
-    # Filter by item name if specified
     if request.item_name:
         data = [record for record in data if record["item_name"] == request.item_name]
 
-    # Analyze filtered data
     return analyze_inventory_usage(data)
 
 
 def get_inventory_data_from_db(db: Session):
-    """Fetch inventory data from the database and serialize it."""
-    result = db.query(Inventory).all()  # Query the Inventory table
+    result = db.query(Inventory).all()
     return [
         {
             "item_name": item.item_name,
@@ -333,7 +298,6 @@ def optimize_route_endpoint(request: RouteRequest, db: Session = Depends(get_db)
         weather_api_key=settings.WEATHER_API_KEY,
     )
     crud.save_route(db, request, optimized_route)
-    return {"optimized_route": optimized_route}
     broadcast_notification({"type": "route_optimized", "route": optimized_route})
     return {"optimized_route": optimized_route}
 
@@ -341,8 +305,6 @@ def optimize_route_endpoint(request: RouteRequest, db: Session = Depends(get_db)
 @app.get("/route-analytics")
 def route_analytics(db: Session = Depends(get_db)):
     routes = crud.get_all_routes(db)
-
-    # Serialize routes into dictionaries
     serialized_routes = [
         {
             "route_id": route.route_id,
@@ -352,8 +314,6 @@ def route_analytics(db: Session = Depends(get_db)):
         }
         for route in routes
     ]
-
-    # Log input data
     logging.info("Input Data for Route Analytics: %s", serialized_routes)
 
     try:
@@ -368,8 +328,7 @@ def delete_route(route_id: str, db: Session = Depends(get_db)):
     if not route:
         raise HTTPException(status_code=404, detail="Route not found.")
 
-    # Perform soft delete or actual delete
-    route.deleted_at = datetime.utcnow()  # Soft delete
+    route.deleted_at = datetime.utcnow()
     db.commit()
     return {"message": f"Route {route_id} successfully deleted"}
 
@@ -380,15 +339,11 @@ def delete_route(route_id: str, db: Session = Depends(get_db)):
 )
 def high_traffic_routes(db: Session = Depends(get_db)):
     routes = crud.get_all_routes(db)
-
-    # Serialize the route data
     serialized_routes = [
         {
             "route_id": route.route_id,
             "distance": route.distance if hasattr(route, "distance") else 0,
-            "duration": (
-                route.duration if hasattr(route, "duration") else 1
-            ),  # Avoid division by zero
+            "duration": route.duration if hasattr(route, "duration") else 1,
         }
         for route in routes
     ]
@@ -411,7 +366,6 @@ def get_admin_data():
     "/manager-dashboard", dependencies=[Depends(require_role(["manager", "admin"]))]
 )
 def manager_dashboard():
-    # Example endpoint for manager or admin access
     return {"message": "Welcome to the manager dashboard!"}
 
 
@@ -420,7 +374,6 @@ def manager_dashboard():
     dependencies=[Depends(require_role(["viewer", "manager", "admin"]))],
 )
 def viewer_content():
-    # Example endpoint accessible by all roles
     return {"message": "Content for all users with appropriate roles."}
 
 
@@ -474,14 +427,12 @@ async def generic_exception_handler(request, exc):
     return JSONResponse(content={"detail": str(exc)}, status_code=500)
 
 
-# WebSocket route monitoring
 @app.websocket("/ws/routes")
 async def websocket_routes(websocket: WebSocket):
     await websocket.accept()
     try:
         while True:
-            # Simulate real-time updates
-            await asyncio.sleep(5)  # Delay for simulation
+            await asyncio.sleep(5)
             data = {
                 "route_id": "example_route",
                 "current_location": {"lat": 40.7128, "lon": -74.0060},
@@ -497,9 +448,6 @@ def predictive_insights(
     inventory_request: Optional[PredictiveInventoryRequest] = None,
     route_request: Optional[PredictiveRouteRequest] = None,
 ):
-    """
-    Provide predictive insights for inventory demand and route delays.
-    """
     inventory_prediction = None
     route_prediction = None
 
@@ -526,11 +474,9 @@ def train_models():
     from app.ai import train_inventory_model, train_route_model
     import pandas as pd
 
-    # Inventory training data
     inventory_data = {"days": [1, 2, 3, 4, 5], "stock": [100, 90, 80, 70, 60]}
     train_inventory_model(inventory_data)
 
-    # Route training data
     route_data = pd.DataFrame(
         {
             "distance": [10, 20, 30, 40, 50],
@@ -549,11 +495,9 @@ def retrain_models():
     try:
         from app.ai import train_inventory_model, train_route_model
 
-        # Retraining inventory model
         inventory_data = {"days": [1, 2, 3, 4, 5], "stock": [100, 90, 80, 70, 60]}
         train_inventory_model(inventory_data)
 
-        # Retraining route model
         route_data = pd.DataFrame(
             {
                 "distance": [10, 20, 30, 40, 50],
@@ -584,14 +528,12 @@ def model_status():
 
 @app.get("/data-summary")
 def data_summary(db: Session = Depends(get_db)):
-    # Fetch inventory summary
     inventory_items = crud.get_inventory(db)
     inventory_summary = [
         {"item_name": item.item_name, "stock": item.stock, "location": item.location}
         for item in inventory_items
     ]
 
-    # Fetch active routes summary
     active_routes = crud.get_active_routes(db)
     route_summary = [
         {
@@ -610,19 +552,17 @@ async def websocket_alerts(websocket: WebSocket):
     await websocket.accept()
     try:
         while True:
-            # This can be replaced with actual alert-generating logic
             alert_data = {
                 "type": "inventory",
                 "message": "Low stock detected for item ABC",
                 "timestamp": datetime.utcnow().isoformat(),
             }
             await websocket.send_json(alert_data)
-            await asyncio.sleep(10)  # Example interval for sending alerts
+            await asyncio.sleep(10)
     except WebSocketDisconnect:
         logging.info("WebSocket disconnected for alerts")
 
 
-# analytics endpoint for trend forecasting
 @app.get("/analytics/forecast")
 def trend_forecasting(db: Session = Depends(get_db)):
     try:
@@ -640,10 +580,9 @@ def trend_forecasting(db: Session = Depends(get_db)):
         inventory_df.sort_values("date", inplace=True)
         inventory_df.set_index("date", inplace=True)
 
-        # Time series forecasting using ARIMA
         model = ARIMA(inventory_df["stock"], order=(1, 1, 1))
         model_fit = model.fit()
-        forecast = model_fit.forecast(steps=10)  # Forecast next 10 steps
+        forecast = model_fit.forecast(steps=10)
 
         return {"forecast": forecast.tolist()}
     except Exception as e:
@@ -651,7 +590,6 @@ def trend_forecasting(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# analytics endpoint for clustering
 @app.get("/analytics/clustering")
 def clustering_analysis(by: str = "location", db: Session = Depends(get_db)):
     try:
@@ -676,7 +614,6 @@ def clustering_analysis(by: str = "location", db: Session = Depends(get_db)):
         else:
             raise HTTPException(status_code=400, detail="Invalid clustering parameter.")
 
-        # Clustering using K-Means
         kmeans = KMeans(n_clusters=3, random_state=42)
         inventory_df["cluster"] = kmeans.fit_predict(data)
 
@@ -688,26 +625,16 @@ def clustering_analysis(by: str = "location", db: Session = Depends(get_db)):
 
 @app.websocket("/ws/notifications")
 async def websocket_notifications(websocket: WebSocket):
-    """
-    WebSocket endpoint to broadcast real-time notifications about routes or inventory updates.
-    """
     await websocket.accept()
     connected_clients.append(websocket)
     try:
         while True:
-            # Keep connection open
-            await asyncio.sleep(10)  # Placeholder for real-time updates
+            await asyncio.sleep(10)
     except WebSocketDisconnect:
         connected_clients.remove(websocket)
         logging.info("WebSocket client disconnected.")
 
 
 def broadcast_notification(event: dict):
-    """
-    Broadcast an event to all connected WebSocket clients.
-
-    Args:
-        event (dict): Event data to send.
-    """
     for websocket in connected_clients:
         asyncio.create_task(websocket.send_json(event))

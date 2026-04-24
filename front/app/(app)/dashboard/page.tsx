@@ -117,7 +117,6 @@ export default function Dashboard() {
         }
       />
 
-      {/* Hero stat row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         <HealthCard status={health} detail={detail} />
         <StatCard
@@ -141,7 +140,6 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Quick actions grid */}
       <section>
         <SectionHeader
           kicker="Quick actions"
@@ -185,7 +183,6 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Pipeline timeline */}
       <section>
         <SectionHeader
           kicker="Pipeline"
@@ -229,7 +226,6 @@ export default function Dashboard() {
         </Card>
       </section>
 
-      {/* Token debug drawer */}
       {token && (
         <Card>
           <CardHeader>
@@ -356,7 +352,6 @@ function Stage({
 }) {
   return (
     <div className="relative flex items-start gap-4 py-3">
-      {/* vertical line */}
       {!last && (
         <span className="absolute left-[14px] top-8 bottom-0 w-px bg-brand-gold/15" />
       )}

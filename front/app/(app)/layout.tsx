@@ -11,7 +11,6 @@ const externalLinks = [
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="theme-dark h-screen flex bg-background text-foreground relative overflow-hidden">
-      {/* Ambient background glow */}
       <div className="pointer-events-none fixed inset-0 -z-0">
         <div className="absolute top-0 left-1/3 w-[600px] h-[600px] rounded-full bg-brand-gold/10 blur-[140px]" />
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-deep/40 blur-[120px]" />

@@ -2,19 +2,14 @@ from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
 
-# NOTE: SQLAlchemy ORM models for User / Role / Permission live in `app.models`.
-# This file is strictly Pydantic schemas (API request/response contracts).
 
-# Schema for inventory item details
 class InventoryItem(BaseModel):
     item_name: str = Field(..., description="Name of the inventory item")
     stock: int = Field(..., description="Quantity of the item in stock")
     location: str = Field(..., description="Location where the item is stored")
 
     class Config:
-        from_attributes = (
-            True  # Enable ORM mode to allow compatibility with SQLAlchemy models
-        )
+        from_attributes = True
 
 
 class InventoryAnalyticsRequest(BaseModel):
@@ -38,13 +33,11 @@ class InventoryUpdateRequest(BaseModel):
         from_attributes = True
 
 
-# Schema for a single geographic location with latitude and longitude
 class Location(BaseModel):
     lat: float = Field(..., description="Latitude of the location")
     lon: float = Field(..., description="Longitude of the location")
 
 
-# Schema for a route request
 class RouteRequest(BaseModel):
     route_id: Optional[str] = Field(
         None, description="Optional unique identifier for the route"
@@ -55,14 +48,12 @@ class RouteRequest(BaseModel):
     )
 
 
-# Schema for a route response
 class RouteResponse(BaseModel):
     optimized_route: List[Location] = Field(
         ..., description="Optimized route as a list of locations"
     )
 
 
-# Extended schema for a route with additional fields
 class Route(BaseModel):
     route_id: Optional[str] = Field(None, description="Unique identifier for the route")
     start: Location = Field(..., description="Starting location of the route")
@@ -74,9 +65,7 @@ class Route(BaseModel):
     )
 
     class Config:
-        from_attributes = (
-            True  # Enable ORM mode to allow compatibility with SQLAlchemy models
-        )
+        from_attributes = True
 
 
 class AdminDataRequest(BaseModel):
@@ -108,7 +97,7 @@ class PredictiveResponse(BaseModel):
 
 
 class TokenRequest(BaseModel):
-    role: Optional[str] = "user"  # Default role is "user"
+    role: Optional[str] = "user"
 
 
 class UserCreate(BaseModel):

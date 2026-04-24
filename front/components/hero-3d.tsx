@@ -97,7 +97,6 @@ function Nodes() {
           </mesh>
         </Float>
       ))}
-      {/* arcs between selected nodes */}
       {points.slice(0, NODE_COUNT - 1).map((p, i) => {
         const q = points[(i + 3) % points.length];
         const mid = p.clone().add(q).multiplyScalar(0.5).multiplyScalar(1.25);

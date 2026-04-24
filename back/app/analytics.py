@@ -3,21 +3,10 @@ import numpy as np
 import logging
 from typing import List, Dict
 
-# Initialize logger
 logger = logging.getLogger(__name__)
 
 
-# Analyze historical inventory data
 def analyze_inventory_usage(data: List[Dict]) -> Dict:
-    """
-    Analyzes inventory usage by calculating the average stock for each item.
-
-    Args:
-        data (List[Dict]): List of inventory records with keys 'item_name' and 'stock'.
-
-    Returns:
-        Dict: A dictionary of average stock per item_name.
-    """
     if not data or not all("item_name" in d and "stock" in d for d in data):
         logger.error("Invalid data for inventory usage analysis.")
         raise ValueError("Each record must contain 'item_name' and 'stock'.")
@@ -28,17 +17,7 @@ def analyze_inventory_usage(data: List[Dict]) -> Dict:
     return avg_usage.to_dict()
 
 
-# Analyze route performance over time
 def analyze_route_performance(data: List[Dict]) -> Dict:
-    """
-    Analyzes route performance by calculating the average delay per route.
-
-    Args:
-        data (List[Dict]): List of route records with keys 'route_id' and 'delay_minutes'.
-
-    Returns:
-        Dict: A dictionary of average delays per route_id.
-    """
     if not all("route_id" in d and "delay_minutes" in d for d in data):
         logger.error("Invalid data for route performance analysis.")
         raise ValueError("Each record must contain 'route_id' and 'delay_minutes'.")
@@ -52,17 +31,7 @@ def analyze_route_performance(data: List[Dict]) -> Dict:
     return delays.to_dict()
 
 
-# Analyze inventory trends
 def analyze_inventory_trend(data: List[Dict]) -> Dict:
-    """
-    Analyzes inventory trends by calculating percentage change in total stock over time.
-
-    Args:
-        data (List[Dict]): List of inventory records with keys 'date' and 'stock'.
-
-    Returns:
-        Dict: A dictionary of percentage stock changes by date.
-    """
     if not data or "date" not in data[0]:
         logger.error("Invalid data for inventory trend analysis.")
         raise ValueError("'date' column is required in the input data.")
@@ -74,17 +43,7 @@ def analyze_inventory_trend(data: List[Dict]) -> Dict:
     return trend.to_dict()
 
 
-# Analyze delays by route
 def analyze_route_delays(data: List[Dict]) -> Dict:
-    """
-    Analyzes delay statistics per route.
-
-    Args:
-        data (List[Dict]): List of route records with keys 'route_id' and 'delay_minutes'.
-
-    Returns:
-        Dict: A dictionary of descriptive statistics for delays by route_id.
-    """
     if not all("route_id" in d and "delay_minutes" in d for d in data):
         logger.error("Invalid data for route delay analysis.")
         raise ValueError("Each record must contain 'route_id' and 'delay_minutes'.")
@@ -95,18 +54,7 @@ def analyze_route_delays(data: List[Dict]) -> Dict:
     return delays
 
 
-# Rolling inventory trend analysis
 def analyze_rolling_inventory_trend(data: List[Dict], window: int = 7) -> Dict:
-    """
-    Analyzes rolling inventory trends using a specified window size.
-
-    Args:
-        data (List[Dict]): List of inventory records with keys 'date' and 'stock'.
-        window (int): Window size for rolling average.
-
-    Returns:
-        Dict: A dictionary of rolling average stock levels by date.
-    """
     if not data or "date" not in data[0]:
         logger.error("Invalid data for rolling inventory trend analysis.")
         raise ValueError("'date' column is required in the input data.")
@@ -121,17 +69,7 @@ def analyze_rolling_inventory_trend(data: List[Dict], window: int = 7) -> Dict:
     return rolling_avg.to_dict()
 
 
-# Analyze high traffic routes
 def analyze_high_traffic_routes(data: List[Dict]) -> List[Dict]:
-    """
-    Analyzes high traffic routes based on traffic density (distance/duration).
-
-    Args:
-        data (List[Dict]): List of route records with keys 'distance' and 'duration'.
-
-    Returns:
-        List[Dict]: A list of high traffic routes exceeding the 90th percentile of traffic density.
-    """
     if not data or "distance" not in data[0] or "duration" not in data[0]:
         logger.error("Invalid data for high traffic route analysis.")
         raise ValueError(
@@ -139,7 +77,7 @@ def analyze_high_traffic_routes(data: List[Dict]) -> List[Dict]:
         )
 
     df = pd.DataFrame(data)
-    df = df[df["duration"] > 0]  # Avoid division by zero
+    df = df[df["duration"] > 0]
     df["traffic_density"] = df["distance"] / df["duration"]
 
     threshold = df["traffic_density"].quantile(0.9)
@@ -148,14 +86,7 @@ def analyze_high_traffic_routes(data: List[Dict]) -> List[Dict]:
     return high_traffic_routes.to_dict(orient="records")
 
 
-# Fetch inventory data from the database
 def get_inventory_data_from_db():
-    """
-    Fetches inventory data from the database.
-
-    Returns:
-        List[Dict]: A list of inventory records.
-    """
     try:
         result = db.query(Inventory).all()
         inventory_data = [
@@ -173,14 +104,7 @@ def get_inventory_data_from_db():
         raise
 
 
-# Inventory analytics endpoint
 def inventory_analytics():
-    """
-    Endpoint to analyze inventory usage.
-
-    Returns:
-        Dict: A dictionary of average stock usage per item.
-    """
     try:
         db_data = get_inventory_data_from_db()
         return analyze_inventory_usage(db_data)

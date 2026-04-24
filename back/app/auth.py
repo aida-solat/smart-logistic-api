@@ -12,10 +12,6 @@ from sqlalchemy.orm import Session
 
 
 def get_password_hash(password: str) -> str:
-    """Hash a password using PBKDF2-HMAC-SHA256 with a random salt.
-
-    Returns a string of the form ``pbkdf2_sha256$<iterations>$<salt_hex>$<hash_hex>``.
-    """
     salt = secrets.token_bytes(16)
     iterations = 260_000
     dk = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, iterations)
@@ -35,37 +31,19 @@ def verify_password(password: str, stored: str) -> bool:
         return False
 
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# OAuth2 scheme for token authentication
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
-    """FastAPI dependency: decode JWT and return the payload dict.
-
-    Phase-0 scaffolding: returns raw payload. Phase-1 will hydrate a full User
-    object from the database via a new repository module.
-    """
     return verify_token(token)
 
 
 def create_access_token(
     data: dict, role: str = "viewer", expires_delta: Optional[timedelta] = None
 ):
-    """
-    Creates a JSON Web Token (JWT) with embedded claims.
-
-    Args:
-        data (dict): The payload data to include in the token.
-        role (str): The user's role (default is "viewer").
-        expires_delta (timedelta, optional): The duration until the token expires.
-
-    Returns:
-        str: The encoded JWT.
-    """
     to_encode = data.copy()
     to_encode.update({"role": role})
     expire = datetime.utcnow() + (
@@ -82,11 +60,6 @@ def create_access_token(
 
 
 def require_permission(permission: str):
-    """Dependency factory: verify the current user's role grants `permission`.
-
-    Phase-0: role-to-permission mapping is static. Phase-1 will pull from the
-    `roles.permissions` JSON column.
-    """
     _ROLE_PERMISSIONS = {
         "admin": {"view_reports", "manage_users", "manage_routes", "manage_inventory"},
         "manager": {"view_reports", "manage_routes", "manage_inventory"},
@@ -104,16 +77,6 @@ def require_permission(permission: str):
 
 
 def require_role(required_roles: List[str]):
-    """
-    Dependency to check if the user has one of the required roles.
-
-    Args:
-        required_roles (List[str]): A list of roles allowed to access the endpoint.
-
-    Returns:
-        Callable: Dependency that checks user roles.
-    """
-
     def role_checker(token: str = Depends(oauth2_scheme)):
         user = verify_token(token)
         user_role = user.get("role")
@@ -126,18 +89,6 @@ def require_role(required_roles: List[str]):
 
 
 def verify_token(token: str):
-    """
-    Verifies a JWT and extracts the payload.
-
-    Args:
-        token (str): The JWT to verify.
-
-    Returns:
-        dict: The decoded payload if valid.
-
-    Raises:
-        HTTPException: If the token is invalid or expired.
-    """
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
         exp = payload.get("exp")
@@ -155,15 +106,6 @@ def verify_token(token: str):
 
 
 def get_user_role(token: str):
-    """
-    Extracts the user's role from the token.
-
-    Args:
-        token (str): The JWT.
-
-    Returns:
-        str: The user's role.
-    """
     try:
         payload = verify_token(token)
         return payload.get("role", "user")
@@ -173,16 +115,6 @@ def get_user_role(token: str):
 
 
 def token_about_to_expire(token: str, buffer_minutes: int = 1):
-    """
-    Checks if a token is about to expire within a specified buffer time.
-
-    Args:
-        token (str): The JWT.
-        buffer_minutes (int): The buffer time in minutes.
-
-    Returns:
-        bool: True if the token is about to expire, False otherwise.
-    """
     try:
         payload = verify_token(token)
         exp = payload.get("exp")
@@ -196,7 +128,6 @@ def token_about_to_expire(token: str, buffer_minutes: int = 1):
 
 
 def is_admin(token: str):
-    """Check if the token belongs to an admin."""
     payload = verify_token(token)
     role = payload.get("role", "user")
     return role == "admin"

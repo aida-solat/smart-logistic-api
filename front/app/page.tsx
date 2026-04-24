@@ -20,7 +20,6 @@ import {
   Lock,
 } from "lucide-react";
 
-// GitHub brand mark (removed from lucide 1.x for trademark reasons).
 function Github({ className }: { className?: string }) {
   return (
     <svg
@@ -35,7 +34,7 @@ function Github({ className }: { className?: string }) {
 }
 
 const GITHUB_USER = "aida-solat";
-const GITHUB_REPO = "smart-logistics-api";
+const GITHUB_REPO = "smart-logistic-api";
 const KO_FI = "aidasolat";
 
 export default function Landing() {
@@ -55,8 +54,6 @@ export default function Landing() {
     </div>
   );
 }
-
-/* ------------------------------- Nav ------------------------------- */
 
 function Nav() {
   return (
@@ -119,17 +116,13 @@ function LogoMark() {
   );
 }
 
-/* ------------------------------- Hero ------------------------------- */
-
 function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-brand-gold/10 min-h-[720px]">
-      {/* 3D background canvas */}
       <div className="absolute inset-0 pointer-events-none">
         <Hero3D />
       </div>
       <div className="absolute inset-0 hero-grid opacity-30 pointer-events-none" />
-      {/* Left-side gradient to keep text readable over the 3D scene */}
       <div className="absolute inset-0 bg-gradient-to-r from-brand-deepest via-brand-deepest/85 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 pt-24 pb-28 relative">
@@ -168,7 +161,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* Proof strip */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl relative">
           <Metric
             value="+89%"
@@ -209,8 +201,6 @@ function Metric({
     </div>
   );
 }
-
-/* ------------------------------ Problem ------------------------------ */
 
 function Problem() {
   return (
@@ -303,8 +293,6 @@ function BadRow({
   );
 }
 
-/* ------------------------------- Novelty ------------------------------- */
-
 function Novelty() {
   const claims = [
     {
@@ -344,7 +332,6 @@ function Novelty() {
             key={c.n}
             className="tilt-card card-3d group relative rounded-3xl p-8 pt-14 overflow-visible"
           >
-            {/* Floating orb with icon, pops OUT of the card */}
             <div
               className={`orb-chip absolute -top-6 left-8 ${i % 2 === 0 ? "float-y" : "float-y-slow"}`}
             >
@@ -354,7 +341,6 @@ function Novelty() {
               />
             </div>
 
-            {/* Big translucent claim number, parallax-raised */}
             <div
               className="font-display text-[110px] leading-none text-brand-gold/15 group-hover:text-brand-gold/35 transition-all duration-500 absolute top-2 right-6 pointer-events-none select-none"
               style={{ transform: "translateZ(25px)" }}
@@ -381,10 +367,7 @@ function Novelty() {
               {c.text}
             </p>
 
-            {/* Cursor-follow glow */}
             <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_var(--mx,50%)_var(--my,50%),rgba(218,161,18,0.22),transparent_55%)]" />
-
-            {/* Floor reflection — fake 3D ground shadow */}
             <div className="pointer-events-none absolute -bottom-8 left-10 right-10 h-8 rounded-[50%] bg-black/40 blur-xl opacity-60 group-hover:opacity-90 transition-opacity" />
           </div>
         ))}
@@ -392,8 +375,6 @@ function Novelty() {
     </Section>
   );
 }
-
-/* ----------------------------- How it works ----------------------------- */
 
 function HowItWorks() {
   const steps = [
@@ -438,8 +419,6 @@ function HowItWorks() {
   );
 }
 
-/* ------------------------------ Tech stack ------------------------------ */
-
 function TechStack() {
   const groups = [
     {
@@ -473,11 +452,22 @@ function TechStack() {
     {
       name: "Frontend",
       items: [
-        "Next.js 14",
+        "Next.js 16",
+        "React 19",
+        "TypeScript 6",
+        "Tailwind CSS 4",
         "Radix UI",
-        "TailwindCSS",
-        "Recharts",
-        "lucide-react",
+        "Recharts 3",
+        "react-three-fiber",
+      ],
+    },
+    {
+      name: "AI / Copilot",
+      items: [
+        "OpenAI chat API",
+        "LLM narrator",
+        "operator Q&A",
+        "feedback loop",
       ],
     },
     {
@@ -522,8 +512,6 @@ function TechStack() {
     </Section>
   );
 }
-
-/* ------------------------------- Audience ------------------------------- */
 
 function Audience() {
   const who = [
@@ -574,8 +562,6 @@ function Audience() {
   );
 }
 
-/* ------------------------------- Roadmap ------------------------------- */
-
 function Roadmap() {
   const phases: {
     name: string;
@@ -591,15 +577,14 @@ function Roadmap() {
         "Risk-aware VRP (OR-Tools + MC)",
         "SimPy digital twin + A/B validation",
         "Adaptive β calibration loop",
-        "Next.js 14 + Radix UI cockpit",
+        "Next.js 16 + Radix UI cockpit",
+        "LLM narrator + feedback loop",
       ],
     },
     {
       name: "Next",
       status: "next",
       items: [
-        "LLM narrator for causal explanations",
-        "Active-learning feedback from operator overrides",
         "Real-time streaming ingestion (Kafka)",
         "Multi-echelon inventory (plants → hubs → stores)",
       ],
@@ -651,8 +636,6 @@ function Roadmap() {
   );
 }
 
-/* -------------------------------- Sponsor -------------------------------- */
-
 function Sponsor() {
   return (
     <section
@@ -692,8 +675,6 @@ function Sponsor() {
     </section>
   );
 }
-
-/* ------------------------------- Contribute ------------------------------- */
 
 function Contribute() {
   const cards = [
@@ -749,8 +730,6 @@ function Contribute() {
     </Section>
   );
 }
-
-/* --------------------------------- Footer --------------------------------- */
 
 function Footer() {
   const legal = [
@@ -826,8 +805,6 @@ function Footer() {
     </footer>
   );
 }
-
-/* ------------------------------ Primitives ------------------------------ */
 
 function Section({
   id,

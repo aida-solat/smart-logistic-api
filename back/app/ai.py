@@ -7,7 +7,6 @@ from datetime import datetime
 from app.config import settings
 import logging
 
-# Initialize logger
 logger = logging.getLogger("ai")
 
 ROUTE_MODEL_PATH = settings.ROUTE_MODEL_PATH
@@ -15,7 +14,6 @@ INVENTORY_MODEL_PATH = settings.INVENTORY_MODEL_PATH
 
 
 def train_route_model(data):
-    """Train a RandomForestRegressor to predict route delays."""
     try:
         X = data[["distance", "hour_of_day", "weather_conditions"]]
         y = data["delay_minutes"]
@@ -29,7 +27,6 @@ def train_route_model(data):
 
 
 def predict_route_delay(distance: float, weather_conditions: int, hour_of_day: int):
-    """Predict route delays using a pre-trained model."""
     try:
         with open(ROUTE_MODEL_PATH, "rb") as f:
             model = pickle.load(f)
@@ -44,22 +41,17 @@ def predict_route_delay(distance: float, weather_conditions: int, hour_of_day: i
 
 
 def ai_optimize_route(start, destinations, traffic_api_key, weather_api_key):
-    """Optimize route using AI-based delay predictions."""
     enriched_destinations = []
     for dest in destinations:
         try:
-            # Get traffic and weather data
             traffic = get_traffic_data(start, (dest.lat, dest.lon), traffic_api_key)
             weather = get_weather_data((dest.lat, dest.lon), weather_api_key)
 
-            # Predict delay
             delay_prediction = predict_route_delays(
                 [
-                    traffic["distance"],  # Distance in meters
+                    traffic["distance"],
                     datetime.utcnow().hour,
-                    weather.get(
-                        "conditions", 0
-                    ),  # Handle missing weather conditions gracefully
+                    weather.get("conditions", 0),
                 ]
             )
 
@@ -84,7 +76,6 @@ def ai_optimize_route(start, destinations, traffic_api_key, weather_api_key):
 
 
 def load_route_model():
-    """Load the trained route model from disk."""
     try:
         with open(ROUTE_MODEL_PATH, "rb") as f:
             return pickle.load(f)
@@ -92,11 +83,7 @@ def load_route_model():
         raise ValueError("Route model not found. Train the model first.")
 
 
-### Train and Predict Inventory Model
-
-
 def train_inventory_model(data):
-    """Train a RandomForestRegressor for inventory demand prediction."""
     try:
         X = np.array(data["days"]).reshape(-1, 1)
         y = np.array(data["stock"])
@@ -110,7 +97,6 @@ def train_inventory_model(data):
 
 
 def predict_stock(days_from_now):
-    """Predict stock levels using the trained inventory model."""
     try:
         with open(INVENTORY_MODEL_PATH, "rb") as f:
             model = pickle.load(f)
@@ -124,7 +110,6 @@ def predict_stock(days_from_now):
 
 
 def predict_inventory_demand(item_name: str, days_from_now: int):
-    """Predict future inventory demand using a pre-trained model."""
     try:
         with open(INVENTORY_MODEL_PATH, "rb") as f:
             model = pickle.load(f)
