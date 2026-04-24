@@ -1,0 +1,24 @@
+meta {
+  name: Read Admin Data
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://127.0.0.1:8000/admin-data
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3MzU0MjIxODF9.uD1t7l8bex9phRbj1-u54l21b5foiNipxGAlnecYh_U
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "filter": "user_activity",
+    "start_date": "2024-01-01T00:00:00",
+    "end_date": "2024-12-31T23:59:59"
+  }
+}

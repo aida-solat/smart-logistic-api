@@ -1,0 +1,42 @@
+name: Feature request
+description: Propose a new capability or algorithm.
+title: "[feat] "
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the operational or research pain point.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: API shape, algorithm, UI mock — whatever you have.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - causal inference
+        - stochastic optimization
+        - simulation / digital twin
+        - frontend UX
+        - observability / ops
+        - new dataset
+        - other
+  - type: checkboxes
+    id: novel-claim
+    attributes:
+      label: Novel-claim sensitivity
+      description: Does this feature touch any of the novel claims?
+      options:
+        - label: I believe this relates to a novel claim; please coordinate before merging.

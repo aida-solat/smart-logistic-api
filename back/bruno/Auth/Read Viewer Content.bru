@@ -1,0 +1,24 @@
+meta {
+  name: Read Viewer Content
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://127.0.0.1:8000/viewer-content
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJyb2xlIjoidmlld2VyIiwiZXhwIjoxNzM1NDIyMjQ3fQ.qanf2MCZgGT1MZcC6EDFsQ8SjD9MN3VRRp-LniGe7rs
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "filter": "user_activity",
+    "start_date": "2024-01-01T00:00:00",
+    "end_date": "2024-12-31T23:59:59"
+  }
+}

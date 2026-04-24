@@ -1,0 +1,21 @@
+meta {
+  name: Update Inventory
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://127.0.0.1:8000/inventory/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "stock": 600
+  }
+}

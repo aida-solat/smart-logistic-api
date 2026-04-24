@@ -1,0 +1,17 @@
+global:
+    scrape_interval: 15s # Default scrape interval for all targets
+    evaluation_interval: 15s # How often to evaluate rules
+
+scrape_configs:
+    # Scrape configuration for the FastAPI application
+    - job_name: 'smart-logistics-api' # Identifier for this job
+      metrics_path: /metrics # Path to metrics endpoint
+      static_configs:
+          - targets:
+                - 'localhost:8000' # The FastAPI service as defined in docker-compose.yml
+
+    # Scrape configuration for Prometheus itself
+    - job_name: 'prometheus'
+      static_configs:
+          - targets:
+                - 'localhost:9090'

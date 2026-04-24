@@ -1,0 +1,16 @@
+meta {
+  name: Read Manager Dashboard
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://127.0.0.1:8000/manager-dashboard
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJyb2xlIjoibWFuYWdlciIsImV4cCI6MTczNTQyMjIwNn0.-pocudur7wAcZethuhvpxx_B4EqrBsJK5iUWYpUMp6c
+  Content-Type: application/json
+}

@@ -1,0 +1,32 @@
+# Secrets
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# ML artifacts
+*.pkl
+*.joblib
+models/*.pkl
+mlruns/
+mlflow.db
+
+# Logs / data
+logs/
+data/raw/
+data/processed/
+
+# IDE
+.vscode/
+.idea/
+# Grafana runtime
+grafana/grafana.db
+grafana/plugins/

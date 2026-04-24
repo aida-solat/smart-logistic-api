@@ -1,0 +1,16 @@
+meta {
+  name: Read Data Summary
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://127.0.0.1:8000/data-summary
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbl91c2VyIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzM1MzIxODM4fQ.AlingiUYAvHa-ezNzgDiYng-tu_lm9cc_ePtcyjaCQE
+  Content-Type: application/json
+}

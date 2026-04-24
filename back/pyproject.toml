@@ -1,0 +1,8 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-m 'not slow'"
+markers = [
+    "slow: end-to-end causal / DoWhy tests (~1-2 min each). Run with -m slow.",
+]

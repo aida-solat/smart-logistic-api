@@ -1,0 +1,15 @@
+meta {
+  name: Read Sensitive Data
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://127.0.0.1:8000/sensitive-data
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MzUzMjE3ODd9.y68eN0h92TWkkztlZHzWYGH0Tj0Qv5keEpAbnjs_kYo
+}

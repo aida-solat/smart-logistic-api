@@ -1,0 +1,26 @@
+meta {
+  name: Combined Predict Requests
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://127.0.0.1:8000/predictive-insights
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "inventory_request": {
+      "item_name": "Item A",
+      "days_from_now": 7
+    },
+    "route_request": {
+      "distance": 15.5,
+      "weather_conditions": 2,
+      "hour_of_day": 14
+    }
+  }
+  
+}

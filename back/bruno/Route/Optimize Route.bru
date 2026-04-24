@@ -1,0 +1,34 @@
+meta {
+  name: Optimize Route
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://127.0.0.1:8000/optimize-route
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "start": {
+      "lat": 45.7128,
+      "lon": -78.0060
+    },
+    "destinations": [
+      {
+        "lat": 32.0522,
+        "lon": -110.2437
+      },
+      {
+        "lat": 49.8781,
+        "lon": -83.6298
+      }
+    ]
+  }
+}

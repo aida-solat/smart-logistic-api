@@ -1,0 +1,32 @@
+meta {
+  name: Generate Token
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://127.0.0.1:8000/generate-token
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "role": "admin"
+  }
+}
+
+docs {
+  To generate a user token:
+  
+  curl -X POST http://127.0.0.1:8000/generate-token -H "Content-Type: application/json" -d '{}'
+  
+  To generate an admin token:
+  
+  curl -X POST http://127.0.0.1:8000/generate-token -H "Content-Type: application/json" -d '{"role": "admin"}'
+  
+}

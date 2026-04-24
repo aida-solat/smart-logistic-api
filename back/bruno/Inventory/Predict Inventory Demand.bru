@@ -1,0 +1,20 @@
+meta {
+  name: Predict Inventory Demand
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://127.0.0.1:8000/predictive-insights
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "inventory_request": {
+      "item_name": "Item1",
+      "days_from_now": 7
+    }
+  }
+}
