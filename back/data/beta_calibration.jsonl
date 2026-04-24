@@ -1,5 +1,0 @@
-{"delay_shift": -2.0, "baseline_cost": 1000.0, "decision_cost": 400.0, "cost_ratio": 0.4, "meta": {}}
-{"delay_shift": -1.0, "baseline_cost": 1000.0, "decision_cost": 700.0, "cost_ratio": 0.7, "meta": {}}
-{"delay_shift": 0.5, "baseline_cost": 1000.0, "decision_cost": 1150.0, "cost_ratio": 1.15, "meta": {}}
-{"delay_shift": -1.5, "baseline_cost": 1000.0, "decision_cost": 550.0, "cost_ratio": 0.55, "meta": {"note": "ui test"}}
-{"delay_shift": -1.5, "baseline_cost": 1000.0, "decision_cost": 550.0, "cost_ratio": 0.55, "meta": {}}

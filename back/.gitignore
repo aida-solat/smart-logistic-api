@@ -24,6 +24,19 @@ logs/
 data/raw/
 data/processed/
 
+# Prometheus TSDB runtime
+data/[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z]/
+data/wal/
+data/chunks_head/
+data/queries.active
+data/lock
+data/*.jsonl
+
+# SQLite dev / test DBs
+*.db
+*.sqlite
+*.sqlite3
+
 # IDE
 .vscode/
 .idea/
