@@ -25,6 +25,8 @@ from app.analytics import analyze_inventory_usage, analyze_route_performance
 from app.causal import router as causal_router  # APIRouter instance
 from app.optimizer import router as optim_router  # APIRouter instance
 from app.simulator import router as sim_router  # APIRouter instance
+from app.feedback import router as feedback_router  # APIRouter instance
+from app.llm import router as llm_router  # APIRouter instance
 from prometheus_client import Counter, Histogram, make_asgi_app
 from typing import List, Dict, Optional
 from fastapi_limiter import FastAPILimiter
@@ -85,6 +87,8 @@ app = FastAPI(
 app.include_router(causal_router)
 app.include_router(optim_router)
 app.include_router(sim_router)
+app.include_router(feedback_router)
+app.include_router(llm_router)
 
 
 @app.exception_handler(Exception)

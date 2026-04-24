@@ -134,6 +134,35 @@ export const api = {
       method: "POST",
       body: JSON.stringify(body),
     }),
+  feedback: {
+    postOverride: (body: OverrideRecord) =>
+      request<OverrideRecord>("/feedback/override", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    list: (opts?: { limit?: number; decisionType?: string }) => {
+      const q = new URLSearchParams();
+      if (opts?.limit) q.set("limit", String(opts.limit));
+      if (opts?.decisionType) q.set("decision_type", opts.decisionType);
+      const qs = q.toString();
+      return request<OverrideRecord[]>(
+        `/feedback/overrides${qs ? `?${qs}` : ""}`,
+      );
+    },
+    summary: () => request<OverrideSummary>("/feedback/summary"),
+  },
+  llm: {
+    narrate: (payload: Record<string, unknown>, context?: string) =>
+      request<LLMAnswer>("/llm/narrate", {
+        method: "POST",
+        body: JSON.stringify({ payload, context }),
+      }),
+    ask: (question: string, payload: Record<string, unknown>) =>
+      request<LLMAnswer>("/llm/ask", {
+        method: "POST",
+        body: JSON.stringify({ question, payload }),
+      }),
+  },
   simulate: {
     network: (body: Record<string, unknown>) =>
       request<MonteCarloResponse>("/simulate/network", {
@@ -227,6 +256,31 @@ export type RiskVRPResponse = {
   alpha: number;
   n_scenarios: number;
   makespan_samples: number[];
+};
+
+export type OverrideRecord = {
+  decision_id: string;
+  decision_type: string;
+  state: Record<string, unknown>;
+  ai_recommendation: Record<string, unknown>;
+  human_decision: Record<string, unknown>;
+  observed_outcome?: Record<string, unknown> | null;
+  operator_id?: string | null;
+  reason?: string | null;
+  created_at?: string;
+};
+
+export type OverrideSummary = {
+  total: number;
+  by_type: Record<string, number>;
+  with_outcome: number;
+  latest: string | null;
+};
+
+export type LLMAnswer = {
+  text: string;
+  model: string;
+  offline: boolean;
 };
 
 export type MonteCarloResponse = {

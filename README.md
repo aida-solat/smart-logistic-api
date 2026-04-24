@@ -92,8 +92,8 @@ smart logistic api/
 | **5** | Causal-informed CVaR end-to-end pipeline                     | ✅ done |
 | **6** | Next.js + Radix Decision Cockpit UI                          | ✅ done |
 | **7** | Adaptive β calibration from deployment feedback              | ✅ done |
-| **8** | LLM-based narrator + Q&A over decisions                      | ⏳      |
-| **9** | Active learning / override-feedback retraining               | ⏳      |
+| **8** | LLM-based narrator + Q&A over decisions                      | ✅ done |
+| **9** | Active learning / override-feedback retraining               | ✅ done |
 
 ## Services (docker compose)
 
@@ -108,6 +108,15 @@ smart logistic api/
 ## Key API Endpoints
 
 ```
+# Feedback (phase 9)
+POST /feedback/override                 # log an operator override
+GET  /feedback/overrides?limit=50       # recent overrides
+GET  /feedback/summary                  # roll-up stats
+
+# LLM narrator + Q&A (phase 8)
+POST /llm/narrate                       # executive brief of a decision
+POST /llm/ask                           # operator Q&A over a decision
+
 # Causal
 GET  /causal/graph
 POST /causal/estimate-effect            # DoWhy ATE on Olist

@@ -5,10 +5,12 @@ import {
   Activity,
   GitBranch,
   GitCompare,
+  MessageSquare,
   PackageSearch,
   Route,
   Sigma,
   Sparkles,
+  UserCog,
   Workflow,
   type LucideIcon,
 } from "lucide-react";
@@ -44,6 +46,13 @@ const items: Item[] = [
     icon: Sigma,
     group: "Quality",
   },
+  {
+    href: "/narrate",
+    label: "Narrator",
+    icon: MessageSquare,
+    group: "Copilot",
+  },
+  { href: "/feedback", label: "Feedback", icon: UserCog, group: "Copilot" },
 ];
 
 export function SidebarNav() {
