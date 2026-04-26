@@ -414,6 +414,12 @@ function HowItWorks() {
           test. Every artifact — model, scenario set, decision, KPI uplift — is
           persisted in MLflow as experimental evidence.
         </p>
+        <p className="mt-3 text-center text-xs text-muted-foreground/70 max-w-2xl mx-auto">
+          The live demo runs API + UI + Postgres + Redis on Vercel and Render.
+          The full monitoring stack (MLflow, Prometheus, Grafana) ships with the
+          repo and runs locally via{" "}
+          <code className="text-brand-gold">docker compose up</code>.
+        </p>
       </div>
     </Section>
   );
@@ -474,10 +480,18 @@ function TechStack() {
       name: "Ops",
       items: [
         "Docker Compose",
-        "MLflow",
-        "Prometheus",
-        "Grafana",
+        "MLflow (local)",
+        "Prometheus (local)",
+        "Grafana (local)",
         "GitHub Actions",
+      ],
+    },
+    {
+      name: "Deploy",
+      items: [
+        "Vercel — frontend",
+        "Render — API + DB + Redis",
+        "cron-job.org — keep-alive",
       ],
     },
   ];

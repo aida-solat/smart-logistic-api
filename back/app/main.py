@@ -1,5 +1,6 @@
 import asyncio
 from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, engine
 from app import models, crud, schemas
@@ -82,6 +83,25 @@ app = FastAPI(
     description="Prescriptive, causal, risk-aware decision engine for logistics.",
     version="0.1.0",
 )
+
+_frontend_url = os.getenv("FRONTEND_URL", "").strip()
+_cors_origins = (
+    [o.strip() for o in _frontend_url.split(",") if o.strip()]
+    if _frontend_url
+    else [
+        "http://localhost:3000",
+        "http://localhost:3200",
+        "http://localhost:3300",
+    ]
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_cors_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(causal_router)
 app.include_router(optim_router)
 app.include_router(sim_router)

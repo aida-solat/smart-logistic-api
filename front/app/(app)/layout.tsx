@@ -2,10 +2,14 @@ import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { SidebarNav } from "@/components/sidebar-nav";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const MLFLOW_URL = process.env.NEXT_PUBLIC_MLFLOW_URL;
+const GRAFANA_URL = process.env.NEXT_PUBLIC_GRAFANA_URL;
+
 const externalLinks = [
-  { label: "API docs", href: "http://localhost:8000/docs" },
-  { label: "MLflow", href: "http://localhost:5500" },
-  { label: "Grafana", href: "http://localhost:3100" },
+  { label: "API docs", href: `${API_URL}/docs` },
+  ...(MLFLOW_URL ? [{ label: "MLflow", href: MLFLOW_URL }] : []),
+  ...(GRAFANA_URL ? [{ label: "Grafana", href: GRAFANA_URL }] : []),
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {

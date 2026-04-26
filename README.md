@@ -71,31 +71,37 @@ smart logistic api/
 
 ## Roadmap
 
-| Phase | Goal                                                     |
-| ----- | -------------------------------------------------------- |
-| 0     | Cleanup and scaffolding                                  |
-| 1     | Causal MVP on Olist (DoWhy ATE + counterfactual)         |
-| 2     | CVaR stochastic inventory optimizer                      |
-| 3     | SimPy digital twin + A/B validation                      |
-| 4     | Risk-aware VRP (OR-Tools + Monte-Carlo CVaR)             |
-| 5     | Causal-informed CVaR end-to-end pipeline                 |
-| 6     | Next.js + Radix decision cockpit UI                      |
-| 7     | Adaptive β calibration from deployment feedback          |
-| 8     | LLM narrator + Q&A over decisions                        |
-| 9     | Active learning / override-feedback retraining           |
+| Phase | Goal                                             |
+| ----- | ------------------------------------------------ |
+| 0     | Cleanup and scaffolding                          |
+| 1     | Causal MVP on Olist (DoWhy ATE + counterfactual) |
+| 2     | CVaR stochastic inventory optimizer              |
+| 3     | SimPy digital twin + A/B validation              |
+| 4     | Risk-aware VRP (OR-Tools + Monte-Carlo CVaR)     |
+| 5     | Causal-informed CVaR end-to-end pipeline         |
+| 6     | Next.js + Radix decision cockpit UI              |
+| 7     | Adaptive β calibration from deployment feedback  |
+| 8     | LLM narrator + Q&A over decisions                |
+| 9     | Active learning / override-feedback retraining   |
 
 Phases 0–9 are shipped. Next up: Kafka streaming ingestion and multi-echelon
 inventory.
 
 ## Services (docker compose)
 
-| Service    | URL                   | Purpose                          |
-| ---------- | --------------------- | -------------------------------- |
-| FastAPI    | http://localhost:8000 | Backend API, OpenAPI at `/docs`  |
-| Next.js    | http://localhost:3200 | Decision cockpit UI              |
-| MLflow     | http://localhost:5500 | Experiment audit trail           |
-| Grafana    | http://localhost:3100 | KPI dashboards                   |
-| Prometheus | http://localhost:9090 | Metrics scraping                 |
+| Service    | URL                   | Purpose                         | Where        |
+| ---------- | --------------------- | ------------------------------- | ------------ |
+| FastAPI    | http://localhost:8000 | Backend API, OpenAPI at `/docs` | local + prod |
+| Next.js    | http://localhost:3200 | Decision cockpit UI             | local + prod |
+| PostgreSQL | —                     | Persistent storage              | local + prod |
+| Redis      | —                     | Cache / queues                  | local + prod |
+| MLflow     | http://localhost:5500 | Experiment audit trail          | local only   |
+| Grafana    | http://localhost:3100 | KPI dashboards                  | local only   |
+| Prometheus | http://localhost:9090 | Metrics scraping                | local only   |
+
+The monitoring stack (MLflow, Grafana, Prometheus) runs locally via
+`docker compose up` — it requires persistent volumes that don't fit a
+free-tier hosting plan. Production deploys ship API + UI + DB + Redis only.
 
 ## Key endpoints
 
@@ -171,7 +177,7 @@ locations. Drop the CSVs under `back/data/raw/olist/` (gitignored).
 ## Getting started
 
 ```bash
-# Backend + MLflow + Postgres + Grafana + Prometheus
+# Full local stack: API + Postgres + Redis + MLflow + Grafana + Prometheus
 cd back && docker compose up -d
 
 # Frontend (serves on :3200)
@@ -180,6 +186,17 @@ cd front && pnpm install && pnpm dev
 
 See `back/README.md` for backend details (Alembic migrations, env vars)
 and `front/README.md` for the frontend.
+
+## Deployment
+
+- **Frontend** → Vercel (`front/` as project root). The Next.js rewrite
+  forwards `/api/*` to the backend via `BACKEND_URL`.
+- **Backend** → Render (FastAPI + managed PostgreSQL + Redis).
+- **Monitoring stack** (MLflow, Prometheus, Grafana) is local-only
+  via `docker compose`. The free-tier hosts don't provide the
+  persistent volumes these services need to be useful.
+- A `cron-job.org` ping every 10 minutes hits `/health` to keep
+  the Render free instance from cold-starting.
 
 ## License
 
