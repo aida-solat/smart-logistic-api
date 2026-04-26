@@ -3,6 +3,8 @@
 FastAPI backend for the Causal Decision Copilot. See root `README.md` for the
 full project vision.
 
+**Live API:** https://smart-logistics-api-w0ik.onrender.com (`/health`, `/docs`)
+
 ## Quick Start
 
 ```bash

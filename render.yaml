@@ -48,3 +48,6 @@ services:
       # Comma-separate if you have multiple (e.g. preview deploys).
       - key: FRONTEND_URL
         sync: false
+      # Set to "false" in prod to hide /docs and /redoc.
+      - key: ENABLE_DOCS
+        value: "false"

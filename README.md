@@ -2,6 +2,9 @@
 
 [![CI](https://github.com/aida-solat/smart-logistic-api/actions/workflows/ci.yml/badge.svg)](https://github.com/aida-solat/smart-logistic-api/actions/workflows/ci.yml)
 
+**Live demo:** [logistic.deciwa.com](https://logistic.deciwa.com) ·
+**API:** [smart-logistics-api-w0ik.onrender.com](https://smart-logistics-api-w0ik.onrender.com/health)
+
 A prescriptive, causal, risk-aware decision engine for logistics operations.
 
 Most logistics AI answers the wrong question. It tells you _how late a
@@ -137,7 +140,8 @@ POST /simulate/validate                 A/B offline backtest
 ## Frontend pages
 
 ```
-/             dashboard + API health + login
+/             marketing landing
+/dashboard    app entry: API health, quick actions, pipeline status
 /causal       counterfactual query UI
 /optimize     CVaR inventory solver
 /routing      risk-aware VRP
@@ -145,6 +149,8 @@ POST /simulate/validate                 A/B offline backtest
 /validate     A/B validation with uplift table and chart
 /informed     end-to-end causal -> penalty -> CVaR pipeline
 /calibration  adaptive beta learner
+/feedback     operator overrides log
+/narrate      LLM executive brief over a decision
 ```
 
 ## Closed loop
@@ -189,12 +195,18 @@ and `front/README.md` for the frontend.
 
 ## Deployment
 
-- **Frontend** → Vercel (`front/` as project root). The Next.js rewrite
-  forwards `/api/*` to the backend via `BACKEND_URL`.
-- **Backend** → Render (FastAPI + managed PostgreSQL + Redis).
+- **Frontend** → Vercel at [logistic.deciwa.com](https://logistic.deciwa.com)
+  (`front/` as project root). The Next.js rewrite forwards `/api/*` to
+  the backend via `BACKEND_URL`.
+- **Backend** → Render (FastAPI + managed PostgreSQL + Redis), see
+  `render.yaml`. **All three resources must share the same region**
+  (we pin `frankfurt`) — internal DNS only resolves within a region.
 - **Monitoring stack** (MLflow, Prometheus, Grafana) is local-only
   via `docker compose`. The free-tier hosts don't provide the
   persistent volumes these services need to be useful.
+- **External APIs** (`TRAFFIC_API_KEY`, `WEATHER_API_KEY`) are optional
+  — endpoints that need them fail at request time with a clear error,
+  the rest of the stack boots without them.
 - A `cron-job.org` ping every 10 minutes hits `/health` to keep
   the Render free instance from cold-starting.
 

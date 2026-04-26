@@ -419,14 +419,20 @@ def rate_limited_data():
     return {"message": "This endpoint is rate-limited"}
 
 
-@app.get("/docs", include_in_schema=False)
-async def get_swagger_ui_html():
-    return get_swagger_ui_html(openapi_url=app.openapi_url, title="API Docs")
+_docs_enabled = os.getenv("ENABLE_DOCS", "true").lower() in ("1", "true", "yes")
 
 
-@app.get("/redoc", include_in_schema=False)
-async def get_redoc_html():
-    return get_redoc_html(openapi_url=app.openapi_url, title="ReDoc")
+if _docs_enabled:
+
+    @app.get("/docs", include_in_schema=False)
+    async def get_swagger_ui_html():
+        return get_swagger_ui_html(
+            openapi_url=app.openapi_url, title="API Docs"
+        )
+
+    @app.get("/redoc", include_in_schema=False)
+    async def get_redoc_html():
+        return get_redoc_html(openapi_url=app.openapi_url, title="ReDoc")
 
 
 @app.get("/health")
