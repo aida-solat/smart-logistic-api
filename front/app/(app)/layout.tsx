@@ -20,7 +20,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <aside className="relative z-10 w-64 shrink-0 border-r border-zinc-200 bg-white/80 backdrop-blur-xl flex flex-col">
         <div className="p-6 pb-4">
           <Link href="/" className="group flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-lg bg-brand-gold border border-brand-gold/40 flex items-center justify-center shadow-gold">
+            <div className="h-9 w-9 rounded-lg bg-brand-indigo border border-brand-indigo/40 flex items-center justify-center shadow-indigo">
               <span className="font-display text-white font-bold text-lg leading-none">
                 S
               </span>
@@ -29,20 +29,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <div className="font-display text-base tracking-tight text-brand-cream leading-tight">
                 Smart Logistics
               </div>
-              <div className="text-[10px] tracking-[0.2em] uppercase text-brand-gold/80">
+              <div className="text-[10px] tracking-[0.2em] uppercase text-brand-indigo/80">
                 Decision Copilot
               </div>
             </div>
           </Link>
         </div>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-brand-gold/20 to-transparent mx-4" />
+        <div className="h-px bg-gradient-to-r from-transparent via-brand-indigo/20 to-transparent mx-4" />
 
         <SidebarNav />
 
         <div className="mt-auto p-4 space-y-3">
-          <div className="rounded-xl border border-brand-gold/15 bg-brand-deepest/50 p-3 space-y-1.5">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-brand-gold/70 mb-1">
+          <div className="rounded-xl border border-brand-indigo/15 bg-brand-deepest/50 p-3 space-y-1.5">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-brand-indigo/70 mb-1">
               Services
             </div>
             {externalLinks.map((l) => (
@@ -51,7 +51,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 href={l.href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between text-xs text-muted-foreground hover:text-brand-gold transition-colors"
+                className="flex items-center justify-between text-xs text-muted-foreground hover:text-brand-indigo transition-colors"
               >
                 <span>{l.label}</span>
                 <ExternalLink className="h-3 w-3" />
@@ -60,13 +60,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
           <Link
             href="/"
-            className="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground hover:text-brand-gold hover:bg-brand-gold/5 transition-colors"
+            className="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground hover:text-brand-indigo hover:bg-brand-indigo/5 transition-colors"
           >
             <span>Back to landing</span>
             <ArrowUpRight className="h-3 w-3" />
           </Link>
           <div className="text-[10px] text-muted-foreground/60 px-3">
-            Built by <span className="text-brand-gold">Deciwa</span>
+            Built by <span className="text-brand-indigo">Deciwa</span>
           </div>
         </div>
       </aside>

@@ -86,19 +86,19 @@ export function SidebarNav() {
                   className={
                     "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all " +
                     (active
-                      ? "bg-brand-gold/10 text-brand-cream"
+                      ? "bg-brand-indigo/10 text-brand-cream"
                       : "text-muted-foreground hover:text-brand-cream hover:bg-white/5")
                   }
                 >
                   {active && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] rounded-r bg-brand-gold shadow-gold" />
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] rounded-r bg-brand-indigo shadow-indigo" />
                   )}
                   <Icon
                     className={
                       "h-4 w-4 transition-colors " +
                       (active
-                        ? "text-brand-gold"
-                        : "group-hover:text-brand-gold")
+                        ? "text-brand-indigo"
+                        : "group-hover:text-brand-indigo")
                     }
                   />
                   <span>{label}</span>

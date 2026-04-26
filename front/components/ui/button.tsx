@@ -5,17 +5,18 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-deepest disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-indigo/60 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-deepest disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
-          "bg-brand-gold text-brand-deepest shadow-gold hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]",
+          "bg-brand-indigo text-brand-deepest shadow-indigo hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]",
         accent:
-          "bg-brand-gold text-brand-deepest shadow-gold hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]",
+          "bg-brand-indigo text-brand-deepest shadow-indigo hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]",
         outline:
-          "border border-brand-gold/40 bg-transparent text-brand-cream hover:bg-brand-gold/10 hover:border-brand-gold/70",
-        ghost: "text-brand-cream hover:bg-brand-gold/10 hover:text-brand-gold",
+          "border border-brand-indigo/40 bg-transparent text-brand-cream hover:bg-brand-indigo/10 hover:border-brand-indigo/70",
+        ghost:
+          "text-brand-cream hover:bg-brand-indigo/10 hover:text-brand-indigo",
         destructive: "bg-destructive text-white hover:brightness-110",
       },
       size: {

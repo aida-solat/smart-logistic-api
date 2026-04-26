@@ -55,7 +55,7 @@ export default function Landing() {
 
 function Nav() {
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-brand-deepest/70 border-b border-brand-gold/10">
+    <header className="sticky top-0 z-40 backdrop-blur-md bg-brand-deepest/70 border-b border-brand-indigo/10">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <LogoMark />
@@ -64,19 +64,19 @@ function Nav() {
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
-          <a href="#problem" className="hover:text-brand-gold transition">
+          <a href="#problem" className="hover:text-brand-indigo transition">
             Problem
           </a>
-          <a href="#novelty" className="hover:text-brand-gold transition">
+          <a href="#novelty" className="hover:text-brand-indigo transition">
             Novelty
           </a>
-          <a href="#stack" className="hover:text-brand-gold transition">
+          <a href="#stack" className="hover:text-brand-indigo transition">
             Stack
           </a>
-          <a href="#roadmap" className="hover:text-brand-gold transition">
+          <a href="#roadmap" className="hover:text-brand-indigo transition">
             Roadmap
           </a>
-          <a href="#sponsor" className="hover:text-brand-gold transition">
+          <a href="#sponsor" className="hover:text-brand-indigo transition">
             Sponsor
           </a>
         </nav>
@@ -85,7 +85,7 @@ function Nav() {
             href={`https://github.com/${GITHUB_USER}/${GITHUB_REPO}`}
             target="_blank"
             rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-gold transition"
+            className="hidden sm:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-indigo transition"
             aria-label="GitHub repository"
           >
             <Github className="h-4 w-4" />
@@ -93,7 +93,7 @@ function Nav() {
           </a>
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-2 rounded-full bg-brand-gold text-brand-deepest px-4 py-2 text-sm font-medium hover:shadow-gold transition-shadow"
+            className="inline-flex items-center gap-2 rounded-md bg-brand-indigo text-brand-deepest px-4 py-2 text-sm font-medium hover:shadow-indigo transition-shadow"
           >
             Launch app
             <ArrowRight className="h-4 w-4" />
@@ -106,7 +106,7 @@ function Nav() {
 
 function LogoMark() {
   return (
-    <div className="relative h-8 w-8 rounded-lg bg-brand-gold border border-brand-gold/40 flex items-center justify-center">
+    <div className="relative h-8 w-8 rounded-lg bg-brand-indigo border border-brand-indigo/40 flex items-center justify-center">
       <span className="font-display text-white font-bold text-lg leading-none">
         S
       </span>
@@ -116,14 +116,14 @@ function LogoMark() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-brand-gold/10">
+    <section className="relative overflow-hidden border-b border-brand-indigo/10">
       <div className="hero-bg" />
       <div className="absolute inset-0 hero-grid pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 pt-20 pb-24 relative grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/5 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-brand-gold mb-8">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand-indigo/30 bg-brand-indigo/5 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-brand-indigo mb-8">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-indigo" />
             Causal decision platform
           </div>
           <div className="max-w-3xl">
@@ -139,17 +139,17 @@ function Hero() {
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
-                href="/dashboard"
-                className="inline-flex items-center gap-2 rounded-md bg-brand-gold text-brand-deepest px-5 py-2.5 text-sm font-semibold hover:brightness-110 transition"
+                href="/informed"
+                className="inline-flex items-center gap-2 rounded-md bg-brand-indigo text-brand-deepest px-5 py-2.5 text-sm font-semibold hover:brightness-110 transition"
               >
-                Launch the platform
+                Try the live pipeline
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={`https://github.com/${GITHUB_USER}/${GITHUB_REPO}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-brand-cream/15 px-5 py-2.5 text-sm font-medium text-brand-cream hover:border-brand-gold/40 hover:text-brand-gold transition"
+                className="inline-flex items-center gap-2 rounded-md border border-brand-indigo/40 px-5 py-2.5 text-sm font-medium text-brand-indigo hover:bg-brand-indigo/10 transition"
               >
                 <Github className="h-4 w-4" />
                 Source on GitHub
@@ -191,7 +191,7 @@ function Metric({
   sub: string;
 }) {
   return (
-    <div className="border-l-2 border-brand-gold/60 pl-4">
+    <div className="border-l-2 border-brand-indigo/60 pl-4">
       <div className="font-display text-3xl text-brand-cream tabular-nums">
         {value}
       </div>
@@ -220,7 +220,7 @@ function Problem() {
           </p>
           <p>
             The right question is{" "}
-            <span className="text-brand-gold">causal</span>: &ldquo;If I move
+            <span className="text-brand-indigo">causal</span>: &ldquo;If I move
             200 units from warehouse A to B today, what is the worst-case cost I
             should expect next month?&rdquo; Answering that requires
             do-calculus, tail-risk optimization, and a simulator — not another
@@ -279,13 +279,13 @@ function BadRow({
       className={`flex items-center justify-between gap-4 rounded-lg border px-4 py-3 ${
         bad
           ? "border-destructive/20 bg-destructive/5 opacity-60"
-          : "border-brand-gold/30 bg-brand-gold/5"
+          : "border-brand-indigo/30 bg-brand-indigo/5"
       }`}
     >
       <span className={bad ? "line-through" : "text-brand-cream"}>{text}</span>
       <span
         className={`text-[11px] uppercase tracking-widest ${
-          bad ? "text-destructive/70" : "text-brand-gold"
+          bad ? "text-destructive/70" : "text-brand-indigo"
         }`}
       >
         {label}
@@ -327,26 +327,29 @@ function Novelty() {
       kicker="The novelty"
       title="Four novel claims, all implemented & tested."
     >
-      <div className="grid md:grid-cols-2 gap-px bg-brand-gold/10 border border-brand-gold/10 rounded-xl overflow-hidden">
+      <div className="grid md:grid-cols-2 gap-x-12 gap-y-2">
         {claims.map((c) => (
           <div
             key={c.n}
-            className="relative bg-brand-deeper p-8 hover:bg-brand-deep/40 transition-colors"
+            className="group relative py-8 border-t border-brand-indigo/15 flex gap-6"
           >
-            <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-md border border-brand-gold/25 bg-brand-gold/5 flex items-center justify-center">
-                <c.icon className="h-4 w-4 text-brand-gold" strokeWidth={2} />
-              </div>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                Claim {c.n}
-              </div>
+            <div className="font-display text-5xl tabular-nums text-brand-indigo/30 group-hover:text-brand-indigo transition-colors leading-none shrink-0 w-14">
+              {c.n}
             </div>
-            <h3 className="font-display text-2xl mt-5 text-brand-cream leading-tight">
-              {c.title}
-            </h3>
-            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              {c.text}
-            </p>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-3">
+                <c.icon className="h-4 w-4 text-brand-indigo" strokeWidth={2} />
+                <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                  Claim {c.n}
+                </span>
+              </div>
+              <h3 className="font-display text-xl text-brand-cream leading-snug">
+                {c.title}
+              </h3>
+              <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">
+                {c.text}
+              </p>
+            </div>
           </div>
         ))}
       </div>
@@ -368,35 +371,37 @@ function HowItWorks() {
       kicker="How it works"
       title="One closed loop. Every stage MLflow-logged."
     >
-      <div className="rounded-2xl border border-brand-gold/20 bg-brand-deeper p-8">
-        <div className="flex flex-wrap items-center gap-3 justify-center">
-          {steps.map((s, i) => (
-            <div key={s.label} className="flex items-center gap-3">
-              <div className="flex flex-col items-center text-center">
-                <div className="h-14 w-14 rounded-xl border border-brand-gold/30 bg-brand-deepest flex items-center justify-center shadow-gold/30 shadow-md">
-                  <s.icon className="h-6 w-6 text-brand-gold" />
-                </div>
-                <div className="mt-2 text-sm text-brand-cream font-medium">
-                  {s.label}
-                </div>
-                <div className="text-[11px] text-muted-foreground">{s.sub}</div>
+      <div className="relative">
+        {/* Connector line behind icons */}
+        <div className="hidden md:block absolute left-0 right-0 top-7 h-px bg-gradient-to-r from-transparent via-brand-indigo/40 to-transparent pointer-events-none" />
+        <div className="relative grid grid-cols-2 md:grid-cols-7 gap-y-8 gap-x-2">
+          {steps.map((s) => (
+            <div
+              key={s.label}
+              className="flex flex-col items-center text-center group"
+            >
+              <div className="h-14 w-14 rounded-2xl bg-white border border-zinc-200 shadow-[0_1px_3px_0_rgba(15,23,42,0.06),0_4px_12px_-4px_rgba(99,91,255,0.18)] flex items-center justify-center group-hover:-translate-y-1 transition-transform">
+                <s.icon
+                  className="h-5 w-5 text-brand-indigo"
+                  strokeWidth={2.2}
+                />
               </div>
-              {i < steps.length - 1 && (
-                <ArrowRight className="h-4 w-4 text-brand-gold/60" />
-              )}
+              <div className="mt-3 text-sm text-brand-cream font-semibold">
+                {s.label}
+              </div>
+              <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-0.5">
+                {s.sub}
+              </div>
             </div>
           ))}
         </div>
-        <p className="mt-8 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
+        <p className="mt-12 text-sm text-muted-foreground max-w-2xl leading-relaxed">
           Every box is a tested FastAPI endpoint. Every arrow is an integration
           test. Every artifact — model, scenario set, decision, KPI uplift — is
-          persisted in MLflow as experimental evidence.
-        </p>
-        <p className="mt-3 text-center text-xs text-muted-foreground/70 max-w-2xl mx-auto">
-          The live demo runs API + UI + Postgres + Redis on Vercel and Render.
-          The full monitoring stack (MLflow, Prometheus, Grafana) ships with the
-          repo and runs locally via{" "}
-          <code className="text-brand-gold">docker compose up</code>.
+          persisted in MLflow as experimental evidence. The live demo runs on
+          Vercel + Render; the full monitoring stack (MLflow, Prometheus,
+          Grafana) ships with the repo via{" "}
+          <code className="text-brand-indigo">docker compose up</code>.
         </p>
       </div>
     </Section>
@@ -485,7 +490,7 @@ function TechStack() {
             key={g.name}
             className="card-3d rounded-2xl p-6 hover:-translate-y-1 transition-transform duration-300"
           >
-            <div className="text-[11px] uppercase tracking-[0.2em] text-brand-gold">
+            <div className="text-[11px] uppercase tracking-[0.2em] text-brand-indigo">
               {g.name}
             </div>
             <ul className="mt-3 space-y-1.5">
@@ -494,7 +499,7 @@ function TechStack() {
                   key={i}
                   className="text-sm text-brand-cream/90 flex items-center gap-2"
                 >
-                  <span className="h-1 w-1 rounded-full bg-brand-gold" /> {i}
+                  <span className="h-1 w-1 rounded-full bg-brand-indigo" /> {i}
                 </li>
               ))}
             </ul>
@@ -602,11 +607,11 @@ function Roadmap() {
           <div
             key={p.name}
             className={`card-3d rounded-2xl p-7 hover:-translate-y-1 transition-transform duration-300 ${
-              p.status === "done" ? "!border-brand-gold/50" : ""
+              p.status === "done" ? "!border-brand-indigo/50" : ""
             }`}
           >
             <div className="flex items-center justify-between">
-              <div className="text-[11px] uppercase tracking-[0.2em] text-brand-gold">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-brand-indigo">
                 {p.name}
               </div>
               <div className="text-[11px] text-muted-foreground capitalize">
@@ -616,7 +621,7 @@ function Roadmap() {
             <ul className="mt-4 space-y-2">
               {p.items.map((it) => (
                 <li key={it} className="flex gap-2 text-sm text-brand-cream/90">
-                  <span className="text-brand-gold mt-1">◆</span>
+                  <span className="text-brand-indigo mt-1">◆</span>
                   <span>{it}</span>
                 </li>
               ))}
@@ -630,41 +635,80 @@ function Roadmap() {
 
 function Sponsor() {
   return (
-    <section
-      id="sponsor"
-      className="relative border-y border-brand-gold/10 bg-brand-deeper"
-    >
-      <div className="absolute inset-0 hero-grid opacity-40 pointer-events-none" />
-      <div className="max-w-5xl mx-auto px-6 py-24 relative text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-brand-gold/40 bg-brand-gold/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-brand-gold">
-          <Heart className="h-3 w-3" />
-          Sponsor the project
-        </div>
+    <section id="sponsor" className="border-b border-brand-indigo/10">
+      <div className="max-w-7xl mx-auto px-6 py-24">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-indigo to-[#4f46e5] text-white">
+          {/* Decorative grid + glow */}
+          <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none" />
+          <div className="absolute -top-32 -right-32 h-80 w-80 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
-        <p className="mt-5 text-muted-foreground max-w-2xl mx-auto">
-          Every dollar funds causal benchmarks on new datasets and keeps the
-          Docker stack running for the community.
-        </p>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href={`https://github.com/sponsors/${GITHUB_USER}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-brand-gold text-brand-deepest px-6 py-3 font-medium shadow-gold hover:brightness-110 transition"
-          >
-            <Github className="h-4 w-4" /> Sponsor on GitHub
-          </a>
-          <a
-            href={`https://ko-fi.com/${KO_FI}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-brand-gold/40 px-6 py-3 font-medium text-brand-cream hover:bg-brand-gold/10 transition"
-          >
-            <Coffee className="h-4 w-4" /> Ko-fi
-          </a>
+          <div className="relative grid md:grid-cols-12 gap-10 p-10 md:p-14 items-center">
+            <div className="md:col-span-7">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-white">
+                <Heart className="h-3 w-3" />
+                Sponsor the project
+              </div>
+              <h2 className="mt-5 font-display text-3xl md:text-4xl tracking-tight leading-tight">
+                Open-source, forever.
+                <br />
+                Powered by people like you.
+              </h2>
+              <p className="mt-4 text-white/80 max-w-lg leading-relaxed">
+                Every dollar funds causal benchmarks on new datasets and keeps
+                the Docker stack running for the community.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={`https://github.com/sponsors/${GITHUB_USER}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md bg-white text-brand-indigo px-5 py-2.5 text-sm font-semibold hover:bg-white/90 transition"
+                >
+                  <Github className="h-4 w-4" /> Sponsor on GitHub
+                </a>
+                <a
+                  href={`https://ko-fi.com/${KO_FI}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-white/40 px-5 py-2.5 text-sm font-medium text-white hover:bg-white/10 transition"
+                >
+                  <Coffee className="h-4 w-4" /> Ko-fi
+                </a>
+              </div>
+            </div>
+
+            <div className="md:col-span-5">
+              <div className="grid grid-cols-2 gap-3">
+                <SponsorTier amount="$5" label="Coffee" sub="per month" />
+                <SponsorTier amount="$25" label="Backer" sub="per month" />
+                <SponsorTier amount="$100" label="Sustainer" sub="per month" />
+                <SponsorTier amount="✨" label="Custom" sub="reach out" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function SponsorTier({
+  amount,
+  label,
+  sub,
+}: {
+  amount: string;
+  label: string;
+  sub: string;
+}) {
+  return (
+    <div className="rounded-xl bg-white/10 backdrop-blur border border-white/15 p-4 hover:bg-white/15 transition">
+      <div className="font-display text-2xl tabular-nums">{amount}</div>
+      <div className="text-sm font-medium mt-1">{label}</div>
+      <div className="text-[10px] uppercase tracking-wider text-white/60 mt-0.5">
+        {sub}
+      </div>
+    </div>
   );
 }
 
@@ -698,23 +742,35 @@ function Contribute() {
       kicker="Contribute"
       title="Build the future of prescriptive logistics with us."
     >
-      <div className="grid md:grid-cols-3 gap-5">
-        {cards.map((c) => (
+      <div className="grid md:grid-cols-3 gap-x-12 gap-y-2">
+        {cards.map((c, i) => (
           <a
             key={c.title}
             href={c.href}
             target="_blank"
             rel="noreferrer"
-            className="card-3d group rounded-2xl p-6 hover:-translate-y-1 transition-transform duration-300"
+            className="group relative py-8 border-t border-brand-indigo/15 flex gap-5 hover:border-brand-indigo/40 transition-colors"
           >
-            <c.icon className="h-6 w-6 text-brand-gold" />
-            <h4 className="font-display text-xl mt-3 text-brand-cream">
-              {c.title}
-            </h4>
-            <p className="mt-2 text-sm text-muted-foreground">{c.text}</p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm text-brand-gold group-hover:gap-3 transition-all">
-              {c.cta}
-              <ArrowRight className="h-3 w-3" />
+            <div className="font-display text-4xl tabular-nums text-brand-indigo/30 group-hover:text-brand-indigo transition-colors leading-none shrink-0 w-10">
+              {String(i + 1).padStart(2, "0")}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-3">
+                <c.icon className="h-4 w-4 text-brand-indigo" strokeWidth={2} />
+                <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                  Way {i + 1}
+                </span>
+              </div>
+              <h4 className="font-display text-xl text-brand-cream leading-snug">
+                {c.title}
+              </h4>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {c.text}
+              </p>
+              <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-brand-indigo group-hover:gap-2.5 transition-all">
+                {c.cta}
+                <ArrowRight className="h-3 w-3" />
+              </div>
             </div>
           </a>
         ))}
@@ -747,7 +803,7 @@ function Footer() {
     },
   ];
   return (
-    <footer className="border-t border-brand-gold/10 bg-brand-deepest">
+    <footer className="border-t border-brand-indigo/10 bg-brand-deepest">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
@@ -763,7 +819,7 @@ function Footer() {
                 href="https://github.com/aida-solat"
                 target="_blank"
                 rel="noreferrer"
-                className="text-brand-gold hover:underline"
+                className="text-brand-indigo hover:underline"
               >
                 Deciwa
               </a>
@@ -777,7 +833,7 @@ function Footer() {
                 href={l.href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-gold transition"
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-indigo transition"
               >
                 <l.icon className="h-4 w-4" />
                 {l.label}
@@ -785,10 +841,13 @@ function Footer() {
             ))}
           </div>
         </div>
-        <div className="mt-10 pt-6 border-t border-brand-gold/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-muted-foreground">
+        <div className="mt-10 pt-6 border-t border-brand-indigo/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-muted-foreground">
           <div>© {new Date().getFullYear()} Deciwa. </div>
           <div>
-            <Link href="/dashboard" className="text-brand-gold hover:underline">
+            <Link
+              href="/dashboard"
+              className="text-brand-indigo hover:underline"
+            >
               Launch the app →
             </Link>
           </div>
@@ -810,9 +869,9 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="border-b border-brand-gold/10">
+    <section id={id} className="border-b border-brand-indigo/10">
       <div className="max-w-7xl mx-auto px-6 py-24">
-        <div className="text-[11px] uppercase tracking-[0.25em] text-brand-gold">
+        <div className="text-[11px] uppercase tracking-[0.25em] text-brand-indigo">
           {kicker}
         </div>
         <h2 className="mt-4 font-display text-3xl md:text-5xl tracking-tight text-brand-cream max-w-3xl leading-tight">

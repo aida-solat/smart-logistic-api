@@ -16,13 +16,13 @@ export function PageHeader({
 }) {
   return (
     <header className="relative mb-10">
-      <div className="absolute -top-10 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent" />
+      <div className="absolute -top-10 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-indigo/40 to-transparent" />
 
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div className="flex items-start gap-5">
           <div>
             {kicker && (
-              <div className="text-[11px] uppercase tracking-[0.25em] text-brand-gold">
+              <div className="text-[11px] uppercase tracking-[0.25em] text-brand-indigo">
                 {kicker}
               </div>
             )}

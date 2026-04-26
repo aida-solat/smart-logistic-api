@@ -153,7 +153,7 @@ export default function Dashboard() {
               href={a.href}
               className={
                 "card-3d group rounded-2xl p-6 flex items-start gap-4 hover:-translate-y-1 transition-transform duration-300 " +
-                (a.featured ? "!border-brand-gold/50" : "")
+                (a.featured ? "!border-brand-indigo/50" : "")
               }
             >
               <div className="orb-chip !w-12 !h-12 !rounded-xl shrink-0 !transform-none">
@@ -168,7 +168,7 @@ export default function Dashboard() {
                     {a.label}
                   </h4>
                   {a.featured && (
-                    <span className="text-[9px] uppercase tracking-[0.2em] px-1.5 py-0.5 rounded bg-brand-gold/15 text-brand-gold border border-brand-gold/30">
+                    <span className="text-[9px] uppercase tracking-[0.2em] px-1.5 py-0.5 rounded bg-brand-indigo/15 text-brand-indigo border border-brand-indigo/30">
                       Star
                     </span>
                   )}
@@ -177,7 +177,7 @@ export default function Dashboard() {
                   {a.sub}
                 </div>
               </div>
-              <ArrowRight className="h-4 w-4 text-brand-gold/60 group-hover:text-brand-gold group-hover:translate-x-1 transition-all shrink-0 mt-2" />
+              <ArrowRight className="h-4 w-4 text-brand-indigo/60 group-hover:text-brand-indigo group-hover:translate-x-1 transition-all shrink-0 mt-2" />
             </Link>
           ))}
         </div>
@@ -231,13 +231,13 @@ export default function Dashboard() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="!text-base">Active session token</CardTitle>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-brand-gold">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-brand-indigo">
                 JWT · localStorage
               </span>
             </div>
           </CardHeader>
           <CardContent>
-            <code className="block text-[11px] font-mono text-muted-foreground bg-brand-deepest/50 border border-brand-gold/10 rounded-lg px-3 py-2 truncate">
+            <code className="block text-[11px] font-mono text-muted-foreground bg-brand-deepest/50 border border-brand-indigo/10 rounded-lg px-3 py-2 truncate">
               {token}
             </code>
           </CardContent>
@@ -271,7 +271,7 @@ function HealthCard({
   return (
     <Card className="p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <div className="text-[10px] uppercase tracking-[0.2em] text-brand-gold/80">
+        <div className="text-[10px] uppercase tracking-[0.2em] text-brand-indigo/80">
           API status
         </div>
         <div className={`h-2.5 w-2.5 rounded-full ${dot}`} />
@@ -300,13 +300,13 @@ function StatCard({
   return (
     <Card className="p-5 flex flex-col gap-3 hover:-translate-y-1 transition-transform duration-300">
       <div className="flex items-center justify-between">
-        <div className="text-[10px] uppercase tracking-[0.2em] text-brand-gold/80">
+        <div className="text-[10px] uppercase tracking-[0.2em] text-brand-indigo/80">
           {label}
         </div>
         <Icon
           className={
             "h-4 w-4 " +
-            (accent ? "text-brand-gold" : "text-muted-foreground/70")
+            (accent ? "text-brand-indigo" : "text-muted-foreground/70")
           }
           strokeWidth={2}
         />
@@ -328,7 +328,7 @@ function SectionHeader({
 }) {
   return (
     <div className="mb-5">
-      <div className="text-[11px] uppercase tracking-[0.25em] text-brand-gold">
+      <div className="text-[11px] uppercase tracking-[0.25em] text-brand-indigo">
         {kicker}
       </div>
       <h2 className="mt-1 font-display text-2xl text-brand-cream">{title}</h2>
@@ -353,25 +353,26 @@ function Stage({
   return (
     <div className="relative flex items-start gap-4 py-3">
       {!last && (
-        <span className="absolute left-[14px] top-8 bottom-0 w-px bg-brand-gold/15" />
+        <span className="absolute left-[14px] top-8 bottom-0 w-px bg-brand-indigo/15" />
       )}
       <div
         className={
           "relative z-10 h-7 w-7 rounded-full flex items-center justify-center shrink-0 " +
           (active
-            ? "bg-brand-gold shadow-gold"
-            : "bg-brand-deepest border border-brand-gold/30")
+            ? "bg-brand-indigo shadow-indigo"
+            : "bg-brand-deepest border border-brand-indigo/30")
         }
       >
         <CheckCircle2
           className={
-            "h-4 w-4 " + (active ? "text-brand-deepest" : "text-brand-gold/80")
+            "h-4 w-4 " +
+            (active ? "text-brand-deepest" : "text-brand-indigo/80")
           }
           strokeWidth={2.4}
         />
       </div>
       <div className="flex-1 pt-1">
-        <div className="text-[10px] uppercase tracking-[0.2em] text-brand-gold/80">
+        <div className="text-[10px] uppercase tracking-[0.2em] text-brand-indigo/80">
           {phase} {active && "· active"}
         </div>
         <div
