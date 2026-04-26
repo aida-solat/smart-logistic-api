@@ -20,14 +20,6 @@ export function PageHeader({
 
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div className="flex items-start gap-5">
-          {Icon && (
-            <div className="orb-chip !w-14 !h-14 !rounded-2xl shrink-0">
-              <Icon
-                className="h-6 w-6 text-brand-deepest relative z-10"
-                strokeWidth={2.2}
-              />
-            </div>
-          )}
           <div>
             {kicker && (
               <div className="text-[11px] uppercase tracking-[0.25em] text-brand-gold">

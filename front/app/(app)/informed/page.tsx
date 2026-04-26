@@ -48,7 +48,6 @@ export default function InformedPage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-3xl font-semibold tracking-tight flex items-center gap-3">
-          <Sparkles className="h-7 w-7 text-accent" />
           Causal-Informed CVaR
         </h1>
         <p className="text-muted-foreground mt-1">

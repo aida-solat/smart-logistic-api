@@ -27,7 +27,9 @@ export default function NarratePage() {
     JSON.stringify(EXAMPLE_PAYLOAD, null, 2),
   );
   const [context, setContext] = useState("");
-  const [question, setQuestion] = useState("Why is the CVaR so much higher than the mean?");
+  const [question, setQuestion] = useState(
+    "Why is the CVaR so much higher than the mean?",
+  );
   const [brief, setBrief] = useState<LLMAnswer | null>(null);
   const [answer, setAnswer] = useState<LLMAnswer | null>(null);
   const [loading, setLoading] = useState<"" | "narrate" | "ask">("");
@@ -74,13 +76,12 @@ export default function NarratePage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-3xl font-semibold tracking-tight flex items-center gap-3">
-          <MessageSquare className="h-7 w-7 text-accent" />
           LLM Narrator & Q&amp;A
         </h1>
         <p className="text-muted-foreground mt-1">
           Turn a decision payload into an executive brief, or ask grounded
-          questions about it. Works offline if no <code>OPENAI_API_KEY</code>{" "}
-          is set (template fallback).
+          questions about it. Works offline if no <code>OPENAI_API_KEY</code> is
+          set (template fallback).
         </p>
       </header>
 

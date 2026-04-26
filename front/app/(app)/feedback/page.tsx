@@ -1,10 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import {
-  api,
-  type OverrideRecord,
-  type OverrideSummary,
-} from "@/lib/api";
+import { api, type OverrideRecord, type OverrideSummary } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -98,7 +94,6 @@ export default function FeedbackPage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-3xl font-semibold tracking-tight flex items-center gap-3">
-          <UserCog className="h-7 w-7 text-accent" />
           Operator Feedback Loop
         </h1>
         <p className="text-muted-foreground mt-1">
@@ -109,19 +104,16 @@ export default function FeedbackPage() {
 
       <div className="grid sm:grid-cols-4 gap-4">
         <Stat label="Total overrides" value={summary?.total ?? "—"} />
-        <Stat
-          label="With outcome"
-          value={summary?.with_outcome ?? "—"}
-        />
+        <Stat label="With outcome" value={summary?.with_outcome ?? "—"} />
         <Stat
           label="Decision types"
-          value={
-            summary ? Object.keys(summary.by_type).length : "—"
-          }
+          value={summary ? Object.keys(summary.by_type).length : "—"}
         />
         <Stat
           label="Latest"
-          value={summary?.latest ? new Date(summary.latest).toLocaleString() : "—"}
+          value={
+            summary?.latest ? new Date(summary.latest).toLocaleString() : "—"
+          }
         />
       </div>
 
@@ -166,7 +158,11 @@ export default function FeedbackPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4">
-            <JsonField label="State" value={stateText} onChange={setStateText} />
+            <JsonField
+              label="State"
+              value={stateText}
+              onChange={setStateText}
+            />
             <JsonField
               label="AI recommendation"
               value={aiText}
@@ -216,7 +212,9 @@ export default function FeedbackPage() {
         </CardHeader>
         <CardContent>
           {records.length === 0 ? (
-            <div className="text-sm text-muted-foreground">No overrides yet.</div>
+            <div className="text-sm text-muted-foreground">
+              No overrides yet.
+            </div>
           ) : (
             <div className="space-y-2">
               {records.map((r) => (
@@ -234,17 +232,11 @@ export default function FeedbackPage() {
                     </div>
                   </div>
                   {r.reason && (
-                    <div className="text-muted-foreground">
-                      “{r.reason}”
-                    </div>
+                    <div className="text-muted-foreground">“{r.reason}”</div>
                   )}
                   <div className="grid md:grid-cols-2 gap-2 text-xs font-mono text-muted-foreground">
-                    <div>
-                      AI: {JSON.stringify(r.ai_recommendation)}
-                    </div>
-                    <div>
-                      Human: {JSON.stringify(r.human_decision)}
-                    </div>
+                    <div>AI: {JSON.stringify(r.ai_recommendation)}</div>
+                    <div>Human: {JSON.stringify(r.human_decision)}</div>
                   </div>
                 </div>
               ))}
@@ -256,13 +248,7 @@ export default function FeedbackPage() {
   );
 }
 
-function Stat({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | number;
-}) {
+function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-lg border border-border p-3">
       <div className="text-xs text-muted-foreground">{label}</div>
