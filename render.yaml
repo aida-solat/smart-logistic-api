@@ -1,6 +1,7 @@
 databases:
   - name: smart-logistics-db
     plan: free
+    region: frankfurt
     databaseName: smart_logistics
     user: smart_logistics
 
@@ -8,6 +9,7 @@ services:
   - type: redis
     name: smart-logistics-redis
     plan: free
+    region: frankfurt
     ipAllowList: []
 
   - type: web
