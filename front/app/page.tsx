@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Hero3D from "@/components/hero-3d";
-import TiltGrid from "@/components/tilt-grid";
+import HeroVisual from "@/components/hero-visual";
 import {
   ArrowRight,
   BrainCircuit,
@@ -10,7 +9,6 @@ import {
   Route,
   Shield,
   ShieldCheck,
-  Sparkles,
   Target,
   Workflow,
   Coffee,
@@ -39,7 +37,7 @@ const KO_FI = "aidasolat";
 
 export default function Landing() {
   return (
-    <div className="theme-dark bg-background text-foreground min-h-screen">
+    <div className="bg-background text-foreground min-h-screen">
       <Nav />
       <Hero />
       <Problem />
@@ -108,8 +106,8 @@ function Nav() {
 
 function LogoMark() {
   return (
-    <div className="relative h-8 w-8 rounded-lg bg-gradient-to-br from-brand-gold to-brand-deep border border-brand-gold/40 flex items-center justify-center">
-      <span className="font-display text-brand-deepest font-bold text-lg leading-none">
+    <div className="relative h-8 w-8 rounded-lg bg-brand-gold border border-brand-gold/40 flex items-center justify-center">
+      <span className="font-display text-white font-bold text-lg leading-none">
         S
       </span>
     </div>
@@ -118,50 +116,53 @@ function LogoMark() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-brand-gold/10 min-h-[720px]">
-      <div className="absolute inset-0 pointer-events-none">
-        <Hero3D />
-      </div>
-      <div className="absolute inset-0 hero-grid opacity-30 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-deepest via-brand-deepest/85 to-transparent pointer-events-none" />
+    <section className="relative overflow-hidden border-b border-brand-gold/10">
+      <div className="hero-bg" />
+      <div className="absolute inset-0 hero-grid pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 pt-24 pb-28 relative">
-        <div className="max-w-3xl">
-          <h1 className="mt-6 font-display text-5xl md:text-7xl tracking-tight leading-[1.05] animate-fadeUp text-brand-cream">
-            Not another ETA predictor. <br />A{" "}
-            <span className="shine">causal decision copilot</span> for
-            logistics.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed animate-fadeUp">
-            Most logistics AI answers the wrong question. We move beyond
-            prediction to{" "}
-            <em className="text-brand-gold not-italic">prescription</em> —
-            combining causal inference, risk-aware stochastic optimization, and
-            a digital twin to recommend{" "}
-            <em className="text-brand-gold not-italic">what to do right now</em>
-            , and prove it offline before deployment.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4 animate-fadeUp">
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2 rounded-full bg-brand-gold text-brand-deepest px-6 py-3 font-medium shadow-gold hover:brightness-110 hover:scale-[1.02] transition"
-            >
-              Open the live app
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <a
-              href={`https://github.com/${GITHUB_USER}/${GITHUB_REPO}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-brand-gold/40 px-6 py-3 font-medium text-brand-cream hover:bg-brand-gold/10 transition backdrop-blur-sm"
-            >
-              <Github className="h-4 w-4" />
-              View on GitHub
-            </a>
+      <div className="max-w-7xl mx-auto px-6 pt-20 pb-24 relative grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-7">
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/5 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-brand-gold mb-8">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
+            Causal decision platform
+          </div>
+          <div className="max-w-3xl">
+            <h1 className="font-display text-4xl md:text-6xl tracking-tight leading-[1.1] text-brand-cream">
+              Prescriptive logistics, <br />
+              <span className="shine">backed by causal evidence.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+              An enterprise-grade decision engine that combines causal
+              inference, risk-aware stochastic optimization, and a digital twin
+              to recommend the next operational action — and certify the uplift
+              offline before deployment.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center gap-2 rounded-md bg-brand-gold text-brand-deepest px-5 py-2.5 text-sm font-semibold hover:brightness-110 transition"
+              >
+                Launch the platform
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href={`https://github.com/${GITHUB_USER}/${GITHUB_REPO}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-md border border-brand-cream/15 px-5 py-2.5 text-sm font-medium text-brand-cream hover:border-brand-gold/40 hover:text-brand-gold transition"
+              >
+                <Github className="h-4 w-4" />
+                Source on GitHub
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl relative">
+        <div className="lg:col-span-5">
+          <HeroVisual />
+        </div>
+
+        <div className="lg:col-span-12 mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-8 max-w-4xl relative">
           <Metric
             value="+89%"
             label="service level uplift"
@@ -326,52 +327,29 @@ function Novelty() {
       kicker="The novelty"
       title="Four novel claims, all implemented & tested."
     >
-      <TiltGrid>
-        {claims.map((c, i) => (
+      <div className="grid md:grid-cols-2 gap-px bg-brand-gold/10 border border-brand-gold/10 rounded-xl overflow-hidden">
+        {claims.map((c) => (
           <div
             key={c.n}
-            className="tilt-card card-3d group relative rounded-3xl p-8 pt-14 overflow-visible"
+            className="relative bg-brand-deeper p-8 hover:bg-brand-deep/40 transition-colors"
           >
-            <div
-              className={`orb-chip absolute -top-6 left-8 ${i % 2 === 0 ? "float-y" : "float-y-slow"}`}
-            >
-              <c.icon
-                className="h-7 w-7 text-brand-deepest relative z-10"
-                strokeWidth={2.2}
-              />
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-md border border-brand-gold/25 bg-brand-gold/5 flex items-center justify-center">
+                <c.icon className="h-4 w-4 text-brand-gold" strokeWidth={2} />
+              </div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                Claim {c.n}
+              </div>
             </div>
-
-            <div
-              className="font-display text-[110px] leading-none text-brand-gold/15 group-hover:text-brand-gold/35 transition-all duration-500 absolute top-2 right-6 pointer-events-none select-none"
-              style={{ transform: "translateZ(25px)" }}
-            >
-              {c.n}
-            </div>
-
-            <div
-              className="text-[11px] uppercase tracking-[0.2em] text-brand-gold relative mt-2"
-              style={{ transform: "translateZ(30px)" }}
-            >
-              Claim {c.n}
-            </div>
-            <h3
-              className="font-display text-3xl mt-2 text-brand-cream relative leading-tight"
-              style={{ transform: "translateZ(35px)" }}
-            >
+            <h3 className="font-display text-2xl mt-5 text-brand-cream leading-tight">
               {c.title}
             </h3>
-            <p
-              className="mt-4 text-muted-foreground leading-relaxed relative"
-              style={{ transform: "translateZ(20px)" }}
-            >
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
               {c.text}
             </p>
-
-            <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_var(--mx,50%)_var(--my,50%),rgba(218,161,18,0.22),transparent_55%)]" />
-            <div className="pointer-events-none absolute -bottom-8 left-10 right-10 h-8 rounded-[50%] bg-black/40 blur-xl opacity-60 group-hover:opacity-90 transition-opacity" />
           </div>
         ))}
-      </TiltGrid>
+      </div>
     </Section>
   );
 }

@@ -4,35 +4,35 @@
 @custom-variant dark (&:where(.dark, .dark *, .theme-dark, .theme-dark *));
 
 :root {
-  /* brand.cream */
-  --background: 43 60% 95%;
-  --foreground: 184 56% 10%;
-  --muted: 184 20% 92%;
-  --muted-foreground: 184 15% 35%;
-  --border: 184 20% 82%;
+  /* Stripe/Linear-style light palette */
+  --background: 0 0% 100%;
+  --foreground: 222 16% 8%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 42%;
+  --border: 240 6% 90%;
   --card: 0 0% 100%;
-  --card-foreground: 184 56% 10%;
-  --primary: 184 57% 15%;
-  --primary-foreground: 43 60% 96%;
-  --accent: 41 85% 47%;
-  --accent-foreground: 184 56% 10%;
-  --destructive: 0 75% 50%;
+  --card-foreground: 222 16% 8%;
+  --primary: 248 90% 66%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 248 90% 66%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 51%;
 }
 
 .dark,
 .theme-dark {
-  --background: 185 57% 6%;
-  --foreground: 43 40% 94%;
-  --muted: 184 30% 12%;
-  --muted-foreground: 184 15% 65%;
-  --border: 184 25% 18%;
-  --card: 184 40% 9%;
-  --card-foreground: 43 40% 94%;
-  --primary: 41 85% 47%;
-  --primary-foreground: 184 56% 10%;
-  --accent: 41 85% 47%;
-  --accent-foreground: 184 56% 10%;
-  --destructive: 0 75% 55%;
+  --background: 222 18% 6%;
+  --foreground: 0 0% 98%;
+  --muted: 222 12% 14%;
+  --muted-foreground: 240 5% 65%;
+  --border: 222 12% 18%;
+  --card: 222 16% 9%;
+  --card-foreground: 0 0% 98%;
+  --primary: 248 90% 70%;
+  --primary-foreground: 222 16% 8%;
+  --accent: 248 90% 70%;
+  --accent-foreground: 222 16% 8%;
+  --destructive: 0 72% 60%;
 }
 
 @theme inline {
@@ -50,31 +50,33 @@
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-destructive: hsl(var(--destructive));
 
-  /* Brand palette */
-  --color-brand-deep: #10383a;
-  --color-brand-deeper: #0a2526;
-  --color-brand-deepest: #061617;
-  --color-brand-gold: #daa112;
-  --color-brand-gold-soft: #f0c755;
-  --color-brand-cream: #f7f1e0;
-  --color-brand-ink: #0b1d1e;
+  /* Brand palette — remapped to light Stripe/Linear theme.
+     Names kept for backward compat with existing JSX. */
+  --color-brand-deep: #f4f4f5;
+  --color-brand-deeper: #fafafa;
+  --color-brand-deepest: #ffffff;
+  --color-brand-gold: #635bff;
+  --color-brand-gold-soft: #8b85ff;
+  --color-brand-cream: #0a0a0a;
+  --color-brand-ink: #0a0a0a;
 
   /* Typography */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
 
-  /* Shadows */
-  --shadow-gold: 0 10px 40px -10px rgba(218, 161, 18, 0.35);
-  --shadow-deep: 0 20px 60px -20px rgba(16, 56, 58, 0.4);
+  /* Shadows — soft, Stripe-like */
+  --shadow-gold:
+    0 1px 2px 0 rgba(99, 91, 255, 0.15), 0 4px 12px -2px rgba(99, 91, 255, 0.18);
+  --shadow-deep:
+    0 1px 2px 0 rgba(15, 23, 42, 0.06), 0 8px 24px -8px rgba(15, 23, 42, 0.08);
 
   /* Backgrounds */
-  --background-image-grid-fade:
-    radial-gradient(
-      circle at center,
-      rgba(218, 161, 18, 0.08) 0%,
-      transparent 60%
-    );
+  --background-image-grid-fade: radial-gradient(
+    circle at center,
+    rgba(218, 161, 18, 0.08) 0%,
+    transparent 60%
+  );
 
   /* Keyframes + animations */
   --animate-fade-up: fadeUp 0.6s ease-out both;
@@ -123,13 +125,36 @@ body {
 
 .hero-grid {
   background-image:
-    linear-gradient(rgba(218, 161, 18, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(218, 161, 18, 0.07) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 30%,
+    transparent 75%
+  );
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 40% at 80% 0%,
+      rgba(139, 133, 255, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 30% at 10% 10%,
+      rgba(99, 91, 255, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
 }
 
 .gold-underline {
-  background-image: linear-gradient(90deg, #daa112, transparent);
+  background-image: linear-gradient(90deg, #635bff, transparent);
   background-size: 100% 2px;
   background-repeat: no-repeat;
   background-position: 0 100%;
@@ -137,106 +162,130 @@ body {
 
 .tilt-card {
   transition:
-    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
-  transform-style: preserve-3d;
-  will-change: transform;
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
-.tilt-card > * {
-  transform-style: preserve-3d;
-}
-
-.float-y {
-  animation: floatY 6s ease-in-out infinite;
-}
+/* Floating animations disabled for enterprise feel */
+.float-y,
 .float-y-slow {
-  animation: floatY 9s ease-in-out infinite;
-}
-@keyframes floatY {
-  0%,
-  100% {
-    transform: translateY(0) translateZ(40px);
-  }
-  50% {
-    transform: translateY(-8px) translateZ(40px);
-  }
+  animation: none;
 }
 
 .card-3d {
   position: relative;
-  background: linear-gradient(155deg, #143f41 0%, #0a2526 60%, #061617 100%);
-  border: 1px solid rgba(218, 161, 18, 0.18);
-  box-shadow:
-    0 1px 0 0 rgba(240, 199, 85, 0.15) inset,
-    0 30px 60px -20px rgba(0, 0, 0, 0.55),
-    0 15px 30px -15px rgba(16, 56, 58, 0.6);
-}
-.card-3d::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      120% 50% at 50% 0%,
-      rgba(240, 199, 85, 0.08),
-      transparent 60%
-    ),
-    radial-gradient(
-      60% 30% at 80% 100%,
-      rgba(218, 161, 18, 0.08),
-      transparent 70%
-    );
+  background: #ffffff;
+  border: 1px solid rgb(229, 231, 235);
+  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 .card-3d:hover {
+  border-color: rgb(99, 91, 255);
   box-shadow:
-    0 1px 0 0 rgba(240, 199, 85, 0.25) inset,
-    0 40px 80px -20px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(218, 161, 18, 0.4),
-    0 0 60px -10px rgba(218, 161, 18, 0.35);
+    0 4px 16px -4px rgba(99, 91, 255, 0.18),
+    0 1px 2px 0 rgba(15, 23, 42, 0.04);
 }
 
 .orb-chip {
   position: relative;
-  width: 64px;
-  height: 64px;
-  border-radius: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(145deg, #f0c755 0%, #daa112 45%, #a67809 100%);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.35) inset,
-    0 -2px 6px rgba(0, 0, 0, 0.25) inset,
-    0 18px 30px -10px rgba(218, 161, 18, 0.55),
-    0 8px 18px -4px rgba(0, 0, 0, 0.4);
-  transform: translateZ(50px);
+  background: rgba(99, 91, 255, 0.08);
+  border: 1px solid rgba(99, 91, 255, 0.2);
 }
-.orb-chip::after {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border-radius: 14px;
-  background: radial-gradient(
-    circle at 30% 20%,
-    rgba(255, 255, 255, 0.6),
-    transparent 45%
-  );
-  pointer-events: none;
+.orb-chip svg {
+  color: #635bff !important;
 }
 
 .shine {
-  background: linear-gradient(
-    120deg,
-    #daa112 0%,
-    #f0c755 45%,
-    #daa112 55%,
-    #a67809 100%
-  );
+  background: linear-gradient(120deg, #635bff 0%, #8b85ff 50%, #635bff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Hero visual animations */
+@keyframes hvFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes hvFloatSlow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes hvFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes hvFlow {
+  0% {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+  31.25% {
+    transform: translateX(300%);
+    opacity: 1;
+  }
+  31.26%,
+  100% {
+    transform: translateX(300%);
+    opacity: 0;
+  }
+}
+@keyframes hvDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes hvPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+.hv-float {
+  animation: hvFloat 6s ease-in-out infinite;
+}
+.hv-float-slow {
+  animation: hvFloatSlow 7s ease-in-out infinite;
+}
+.hv-float-slower {
+  animation: hvFloatSlow 9s ease-in-out infinite reverse;
+}
+.hv-fadein {
+  animation: hvFadeIn 0.45s ease-out;
+}
+.hv-flow {
+  animation: hvFlow 6.4s linear infinite;
+}
+.hv-spark-draw {
+  animation:
+    hvDraw 2.2s ease-out forwards,
+    hvPulse 4s ease-in-out 2.2s infinite;
 }

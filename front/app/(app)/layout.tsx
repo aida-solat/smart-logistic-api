@@ -14,17 +14,14 @@ const externalLinks = [
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="theme-dark h-screen flex bg-background text-foreground relative overflow-hidden">
-      <div className="pointer-events-none fixed inset-0 -z-0">
-        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] rounded-full bg-brand-gold/10 blur-[140px]" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-deep/40 blur-[120px]" />
-      </div>
+    <div className="h-screen flex bg-background text-foreground relative overflow-hidden">
+      <div className="pointer-events-none fixed inset-0 -z-0 bg-[radial-gradient(ellipse_at_top_right,rgba(99,91,255,0.05),transparent_60%)]" />
 
-      <aside className="relative z-10 w-64 shrink-0 border-r border-brand-gold/10 bg-[#071a1b]/90 backdrop-blur-xl flex flex-col">
+      <aside className="relative z-10 w-64 shrink-0 border-r border-zinc-200 bg-white/80 backdrop-blur-xl flex flex-col">
         <div className="p-6 pb-4">
           <Link href="/" className="group flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-brand-gold to-brand-deep border border-brand-gold/40 flex items-center justify-center shadow-gold">
-              <span className="font-display text-brand-deepest font-bold text-lg leading-none">
+            <div className="h-9 w-9 rounded-lg bg-brand-gold border border-brand-gold/40 flex items-center justify-center shadow-gold">
+              <span className="font-display text-white font-bold text-lg leading-none">
                 S
               </span>
             </div>
